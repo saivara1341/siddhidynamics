@@ -26,6 +26,7 @@ export const SubmitSection = () => {
     organization: '',
     inquiryType: 'problem',
     message: '',
+    isPublic: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
@@ -117,12 +118,13 @@ export const SubmitSection = () => {
           organization: validatedData.organization?.trim() || null,
           inquiry_type: validatedData.inquiryType,
           message: validatedData.message.trim(),
+          is_public: formData.isPublic,
         });
 
       if (error) throw error;
 
       toast.success(successMessages[formData.inquiryType as keyof typeof successMessages]);
-      setFormData({ name: '', email: '', designation: '', organization: '', inquiryType: 'problem', message: '' });
+      setFormData({ name: '', email: '', designation: '', organization: '', inquiryType: 'problem', message: '', isPublic: false });
     } catch (error) {
       if (error instanceof z.ZodError) {
         const firstError = error.errors[0];
@@ -413,8 +415,8 @@ export const SubmitSection = () => {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         className={`absolute bottom-4 right-4 p-3 rounded-full transition-all duration-500 z-20 ${isListening
-                            ? 'bg-red-500 text-white animate-pulse shadow-[0_0_20px_rgba(239,68,68,0.5)]'
-                            : 'bg-primary/10 text-primary hover:bg-primary/20'
+                          ? 'bg-red-500 text-white animate-pulse shadow-[0_0_20px_rgba(239,68,68,0.5)]'
+                          : 'bg-primary/10 text-primary hover:bg-primary/20'
                           }`}
                         title={isListening ? "Stop Listening" : "Start Voice submission"}
                       >
@@ -422,6 +424,20 @@ export const SubmitSection = () => {
                       </motion.button>
                     </div>
                   </motion.div>
+                </div>
+
+                <div className="flex items-center gap-3 p-4 rounded-xl border border-white/10 bg-white/5">
+                  <input
+                    type="checkbox"
+                    id="isPublic"
+                    name="isPublic"
+                    checked={formData.isPublic}
+                    onChange={(e) => setFormData(prev => ({ ...prev, isPublic: e.target.checked }))}
+                    className="w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary bg-background"
+                  />
+                  <label htmlFor="isPublic" className="text-sm font-medium text-foreground cursor-pointer select-none">
+                    List this challenge on the public <span className="text-primary font-bold">Problem Bounty Board</span> (Help us solve it together!)
+                  </label>
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">

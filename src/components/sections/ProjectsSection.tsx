@@ -43,6 +43,8 @@ const projects: Array<{
   gradient: string;
   accentColor: string;
   url?: string;
+  status: 'Researching' | 'Prototyping' | 'Building' | 'Scaling';
+  progress: number;
 }> = [
     {
       id: 'archplan',
@@ -54,6 +56,8 @@ const projects: Array<{
       gradient: 'from-primary to-orange-400',
       accentColor: 'primary',
       url: 'https://archplan.lovable.app',
+      status: 'Scaling',
+      progress: 92,
     },
     {
       id: 'nexus',
@@ -64,6 +68,8 @@ const projects: Array<{
       features: ['AI Mock Interviews', 'Skill-Gap Detection', 'Institutional ERP', 'Recruiter Portal', 'Gamified Learning', 'Career Analytics'],
       gradient: 'from-accent to-lime-400',
       accentColor: 'accent',
+      status: 'Prototyping',
+      progress: 65,
     },
     {
       id: 'nilayam',
@@ -74,6 +80,8 @@ const projects: Array<{
       features: ['AI Lease Generation', 'Financial Analytics', 'Tenant Portal', 'Maintenance AI', 'Marketing Automation', 'Community Hub'],
       gradient: 'from-accent to-emerald-400',
       accentColor: 'accent',
+      status: 'Prototyping',
+      progress: 40,
     },
     {
       id: 'wish0',
@@ -84,6 +92,8 @@ const projects: Array<{
       features: ['Auto Scheduling', 'Personalized Messages', 'Multi-Channel Delivery', 'Relationship Learning', 'Emotional Intelligence', 'Zero-Friction UX'],
       gradient: 'from-primary to-amber-500',
       accentColor: 'primary',
+      status: 'Researching',
+      progress: 25,
     },
     {
       id: 'letusknow',
@@ -94,6 +104,8 @@ const projects: Array<{
       features: ['GPS-Based Location', 'Political Representatives Info', 'Government Services Guide', 'Department Directory', 'Development Projects', 'Tourism Promotion'],
       gradient: 'from-cyan-500 to-blue-600',
       accentColor: 'accent',
+      status: 'Researching',
+      progress: 15,
     },
   ];
 
@@ -241,9 +253,31 @@ const ProjectCard = ({
               <h3 className="text-2xl font-bold mb-1 text-foreground font-display">
                 {project.name}
               </h3>
-              <p className={`text-sm font-semibold ${isPrimary ? 'text-primary' : 'text-accent'}`}>
-                {project.tagline}
-              </p>
+              <div className="flex justify-between items-center mt-2">
+                <p className={`text-sm font-semibold ${isPrimary ? 'text-primary' : 'text-accent'}`}>
+                  {project.tagline}
+                </p>
+                <div className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${isPrimary ? 'border-primary/30 text-primary bg-primary/5' : 'border-accent/30 text-accent bg-accent/5'}`}>
+                  {project.status}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="mb-6 space-y-2">
+            <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
+              <span>Development Progress</span>
+              <span className={isPrimary ? 'text-primary' : 'text-accent'}>{project.progress}%</span>
+            </div>
+            <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+              <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: `${project.progress}%` }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
+                className={`h-full bg-gradient-to-r ${project.gradient}`}
+              />
             </div>
           </div>
 
@@ -323,7 +357,7 @@ const ProjectCard = ({
           </div>
         </div>
       </motion.div>
-    </motion.div>
+    </motion.div >
   );
 };
 

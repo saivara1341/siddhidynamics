@@ -13,7 +13,8 @@ import {
     Send,
     LogOut,
     ChevronRight,
-    ChevronDown
+    ChevronDown,
+    Zap
 } from "lucide-react";
 
 const Portal = () => {
@@ -116,6 +117,28 @@ const Portal = () => {
                         <h1 className="text-4xl font-bold gradient-text glow-text mb-2">Collab</h1>
                         <p className="text-muted-foreground">Welcome back, {user?.email}</p>
                     </div>
+                </div>
+
+                {/* Stats Dashboard */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                    {[
+                        { label: 'Active Challenges', value: submissions.length, icon: MessageSquare, color: 'text-primary' },
+                        { label: 'Waitlists Joined', value: waitlistEntries.length, icon: Clock, color: 'text-accent' },
+                        { label: 'Overall Progress', value: '42%', icon: CheckCircle2, color: 'text-green-500' },
+                        { label: 'Bounty Rewards', value: '$0', icon: Zap, color: 'text-amber-500' }
+                    ].map((stat, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.1 }}
+                            className="glass-card p-4 border border-white/5 flex flex-col items-center justify-center text-center group hover:border-white/20 transition-all"
+                        >
+                            <stat.icon className={`w-5 h-5 mb-2 ${stat.color}`} />
+                            <div className="text-2xl font-bold text-foreground mb-0.5">{stat.value}</div>
+                            <div className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground/60">{stat.label}</div>
+                        </motion.div>
+                    ))}
                 </div>
 
                 {/* Floating Sign Out Icon Button */}
