@@ -41,7 +41,7 @@ const AuthPage = () => {
         toast.success("Welcome back!");
         navigate("/portal");
       } else {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -52,7 +52,14 @@ const AuthPage = () => {
           },
         });
         if (error) throw error;
-        toast.success("Success! Check your email for the confirmation link.");
+
+        if (data.session) {
+          toast.success("Account created! Welcome to the future.");
+          navigate("/portal");
+        } else {
+          toast.success("Account created! You can now log in.");
+          setIsLogin(true);
+        }
       }
     } catch (error: any) {
       toast.error(error.message || "Authentication failed");
@@ -99,8 +106,8 @@ const AuthPage = () => {
               <button
                 onClick={() => setIsLogin(true)}
                 className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${isLogin
-                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                    : "text-muted-foreground hover:text-foreground"
+                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                  : "text-muted-foreground hover:text-foreground"
                   }`}
               >
                 Login
@@ -108,8 +115,8 @@ const AuthPage = () => {
               <button
                 onClick={() => setIsLogin(false)}
                 className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${!isLogin
-                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                    : "text-muted-foreground hover:text-foreground"
+                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                  : "text-muted-foreground hover:text-foreground"
                   }`}
               >
                 Sign Up

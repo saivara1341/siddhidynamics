@@ -68,9 +68,10 @@ export const FooterSection = () => {
             className="flex items-center gap-10"
           >
             {[
-              { name: 'Vision', href: '#vision' },
-              { name: 'Projects', href: '#projects' },
-              { name: 'Submit Problem', href: '#submit' },
+              { name: 'Vision', href: '#/vision' },
+              { name: 'Projects', href: '#/projects' },
+              { name: 'Submit Problem', href: '#/submit' },
+              { name: 'Collab', href: '#/portal' },
             ].map((link, index) => (
               <motion.a
                 key={link.name}

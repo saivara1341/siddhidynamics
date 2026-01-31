@@ -13,7 +13,8 @@ import {
     Send,
     LogOut,
     ChevronRight,
-    ChevronDown
+    ChevronDown,
+    Sparkles
 } from "lucide-react";
 
 const Portal = () => {
@@ -61,36 +62,6 @@ const Portal = () => {
         if (waitData) setWaitlistEntries(waitData);
     };
 
-    const fetchComments = async (submissionId: string) => {
-        const { data } = await supabase
-            .from('submission_comments')
-            .select('*')
-            .eq('submission_id', submissionId)
-            .order('created_at', { ascending: true });
-
-        if (data) setComments(data);
-    };
-
-    const handleAddComment = async () => {
-        if (!newComment.trim() || !selectedSub) return;
-
-        const { error } = await supabase
-            .from('submission_comments')
-            .insert({
-                submission_id: selectedSub.id,
-                user_id: user.id,
-                content: newComment.trim()
-            });
-
-        if (error) {
-            toast.error("Failed to add comment.");
-        } else {
-            setNewComment("");
-            fetchComments(selectedSub.id);
-            toast.success("Comment added!");
-        }
-    };
-
     const logout = async () => {
         await supabase.auth.signOut();
         navigate("/");
@@ -122,8 +93,8 @@ const Portal = () => {
                         </button>
                     </div>
                     <div>
-                        <h1 className="text-4xl font-bold gradient-text glow-text mb-2">Collab</h1>
-                        <p className="text-muted-foreground">Welcome back, {user?.email}</p>
+                        <p className="text-muted-foreground">Collab Zone • Engineering Intelligence</p>
+                        <h2 className="text-2xl font-bold gradient-text">Welcome, {user?.email?.split('@')[0]}</h2>
                     </div>
                 </div>
 
@@ -169,7 +140,6 @@ const Portal = () => {
                                             <div
                                                 onClick={() => {
                                                     setSelectedSub(selectedSub?.id === sub.id ? null : sub);
-                                                    if (selectedSub?.id !== sub.id) fetchComments(sub.id);
                                                 }}
                                                 className="p-6 cursor-pointer flex items-center justify-between hover:bg-primary/5 transition-colors"
                                             >
@@ -219,70 +189,94 @@ const Portal = () => {
                                                                 </div>
                                                             </div>
 
-                                                            {/* Milestones */}
-                                                            <div className="space-y-6">
-                                                                <h4 className="text-sm font-bold uppercase tracking-widest text-primary/70">Development Roadmap</h4>
-                                                                <div className="space-y-4">
-                                                                    {(sub.milestones || [
-                                                                        { title: "Initial Analysis", completed: true },
-                                                                        { title: "Technical Feasibility Study", completed: sub.status !== 'Analyzing' },
-                                                                        { title: "Prototype Development", completed: sub.status === 'In Progress' || sub.status === 'Resolved' },
-                                                                        { title: "Solution Launch", completed: sub.status === 'Resolved' }
-                                                                    ]).map((milestone: any, i: number) => (
-                                                                        <div key={i} className="flex items-center gap-4">
-                                                                            {milestone.completed ? (
-                                                                                <CheckCircle2 className="w-5 h-5 text-green-500" />
-                                                                            ) : (
-                                                                                <Circle className="w-5 h-5 text-muted-foreground" />
-                                                                            )}
-                                                                            <span className={milestone.completed ? 'text-foreground font-medium' : 'text-muted-foreground italic'}>
-                                                                                {milestone.title}
-                                                                            </span>
+                                                            {/* AI Agent Analysis Integration */}
+                                                            <div className="bg-[#1A1A1A] border border-primary/20 rounded-2xl p-6 relative overflow-hidden group/agent">
+                                                                <div className="absolute top-0 right-0 p-4 opacity-20 group-hover/agent:opacity-100 transition-opacity">
+                                                                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                                                                </div>
+
+                                                                <div className="flex items-center gap-3 mb-6">
+                                                                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                                                                        <Sparkles className="w-5 h-5 text-primary animate-pulse" />
+                                                                    </div>
+                                                                    <div>
+                                                                        <h4 className="font-bold text-foreground">Siddhi Agent Analysis</h4>
+                                                                        <p className="text-[10px] text-primary/70 uppercase tracking-widest font-bold">Active Intelligence Follow-up</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="space-y-6">
+                                                                    <div className="bg-black/40 rounded-xl p-5 border border-white/5">
+                                                                        <h5 className="text-xs font-bold text-muted-foreground uppercase mb-3 flex items-center gap-2">
+                                                                            <Clock className="w-3 h-3" /> Agent State: Refining Roadmap
+                                                                        </h5>
+                                                                        <p className="text-sm text-foreground/80 leading-relaxed italic">
+                                                                            "I have analyzed your {sub.inquiry_type} statement. Our local LLM agents are currently decomposing your request into high-fidelity technical requirements. We are prioritizing the '{sub.message.split(' ').slice(0, 3).join(' ')}...' core architecture."
+                                                                        </p>
+                                                                    </div>
+
+                                                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                                                        {[
+                                                                            { label: 'Complexity', value: 'High', color: 'text-orange-400' },
+                                                                            { label: 'Feasibility', value: 'Verified', color: 'text-green-400' },
+                                                                            { label: 'Priority', value: 'Active', color: 'text-primary' }
+                                                                        ].map((stat, i) => (
+                                                                            <div key={i} className="bg-white/5 rounded-lg p-3 border border-white/5 text-center">
+                                                                                <span className="text-[10px] text-muted-foreground block mb-1 uppercase font-bold">{stat.label}</span>
+                                                                                <span className={`text-sm font-bold ${stat.color}`}>{stat.value}</span>
+                                                                            </div>
+                                                                        ))}
+                                                                    </div>
+
+                                                                    <div className="space-y-4">
+                                                                        <h4 className="text-sm font-bold uppercase tracking-widest text-primary/70">Agentic Milestones</h4>
+                                                                        <div className="space-y-4">
+                                                                            {(sub.milestones || [
+                                                                                { title: "Strategic Agent Alignment", completed: true },
+                                                                                { title: "Architectural Synthesis", completed: sub.status !== 'Analyzing' },
+                                                                                { title: "Recursive Prototyping", completed: sub.status === 'In Progress' || sub.status === 'Resolved' },
+                                                                                { title: "Final Solution Deployment", completed: sub.status === 'Resolved' }
+                                                                            ]).map((milestone: any, i: number) => (
+                                                                                <div key={i} className="flex items-center gap-4">
+                                                                                    {milestone.completed ? (
+                                                                                        <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center">
+                                                                                            <CheckCircle2 className="w-3 h-3 text-green-500" />
+                                                                                        </div>
+                                                                                    ) : (
+                                                                                        <div className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                                                                                            <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground animate-pulse" />
+                                                                                        </div>
+                                                                                    )}
+                                                                                    <span className={milestone.completed ? 'text-foreground font-medium text-sm' : 'text-muted-foreground italic text-sm'}>
+                                                                                        {milestone.title}
+                                                                                    </span>
+                                                                                </div>
+                                                                            ))}
                                                                         </div>
-                                                                    ))}
+                                                                    </div>
                                                                 </div>
                                                             </div>
 
-                                                            {/* Comment System */}
-                                                            <div className="space-y-6 pt-6 border-t border-border/30">
-                                                                <h4 className="text-sm font-bold uppercase tracking-widest text-primary/70 flex items-center gap-2">
-                                                                    <MessageSquare className="w-4 h-4" /> Discussion
+                                                            {/* AI Agent Brainstorming - Clarity Followup */}
+                                                            <div className="space-y-4 pt-6 border-t border-border/30">
+                                                                <h4 className="text-sm font-bold uppercase tracking-widest text-accent/70 flex items-center gap-2">
+                                                                    <Sparkles className="w-4 h-4" /> Agent Clarification Prompt
                                                                 </h4>
-
-                                                                <div className="space-y-4 max-h-60 overflow-y-auto pr-4 scrollbar-thin">
-                                                                    {comments.length === 0 ? (
-                                                                        <p className="text-xs text-muted-foreground italic text-center">No discussion yet. Start the conversation!</p>
-                                                                    ) : (
-                                                                        comments.map((c) => (
-                                                                            <div key={c.id} className={`flex flex-col ${c.user_id === user.id ? 'items-end' : 'items-start'}`}>
-                                                                                <div className={`max-w-[80%] p-3 rounded-xl text-sm ${c.user_id === user.id
-                                                                                    ? 'bg-primary/20 text-foreground border border-primary/20'
-                                                                                    : 'bg-card border border-border/50 text-foreground'
-                                                                                    }`}>
-                                                                                    {c.content}
-                                                                                </div>
-                                                                                <span className="text-[10px] text-muted-foreground mt-1 px-1">
-                                                                                    {new Date(c.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                                                                </span>
-                                                                            </div>
-                                                                        ))
-                                                                    )}
-                                                                </div>
-
-                                                                <div className="relative flex gap-2">
-                                                                    <input
-                                                                        value={newComment}
-                                                                        onChange={(e) => setNewComment(e.target.value)}
-                                                                        placeholder="Add feedback or ask a question..."
-                                                                        className="input-premium py-3 pl-4 pr-12 text-sm"
-                                                                        onKeyPress={(e) => e.key === 'Enter' && handleAddComment()}
-                                                                    />
-                                                                    <button
-                                                                        onClick={handleAddComment}
-                                                                        className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-primary hover:text-accent transition-colors"
-                                                                    >
-                                                                        <Send className="w-5 h-5" />
-                                                                    </button>
+                                                                <div className="bg-accent/5 border border-accent/20 rounded-xl p-5">
+                                                                    <p className="text-sm text-foreground/80 leading-relaxed">
+                                                                        <span className="text-accent font-bold">Agent Inquiry:</span> "To ensure maximum clarity on your {sub.inquiry_type} request, could you specifically detail the primary bottleneck you're experiencing? Our agents are currently mapping the '{sub.message.split(' ').slice(0, 2).join(' ')}' context to existing AI frameworks."
+                                                                    </p>
+                                                                    <div className="mt-4 flex gap-3">
+                                                                        <div className="flex-grow bg-black/40 rounded-lg px-4 py-2 text-xs text-muted-foreground italic border border-white/5">
+                                                                            Responding to this clarity prompt will accelerate engineering...
+                                                                        </div>
+                                                                        <button
+                                                                            onClick={() => toast.success("Clarity signal sent to engineering agents!")}
+                                                                            className="px-4 py-2 bg-accent/20 hover:bg-accent/30 text-accent rounded-lg text-xs font-bold transition-all"
+                                                                        >
+                                                                            Signal Clarity
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
