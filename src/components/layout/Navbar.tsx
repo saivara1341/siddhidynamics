@@ -6,7 +6,7 @@ const navLinks = [
   { name: 'Vision', href: '#/vision' },
   { name: 'Projects', href: '#/projects' },
   { name: 'Submit Problem', href: '#/submit' },
-  { name: 'Partner Portal', href: '#/portal' },
+  { name: 'Collab', href: '#/portal' },
 ];
 
 export const Navbar = () => {
@@ -111,7 +111,7 @@ export const Navbar = () => {
                 <span className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-90 group-hover:opacity-100 transition-opacity" />
                 <span className="absolute inset-0 bg-gradient-to-r from-primary to-accent blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
                 <span className="relative text-primary-foreground">
-                  {isLoggedIn ? 'Go to Portal' : 'Get Started'}
+                  {isLoggedIn ? 'Go to Collab' : 'Get Started'}
                 </span>
               </motion.a>
             </nav>

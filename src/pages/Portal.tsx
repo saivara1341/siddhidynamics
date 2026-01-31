@@ -113,7 +113,7 @@ const Portal = () => {
             <main className="flex-grow container mx-auto px-6 pt-32 pb-20 relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
                     <div>
-                        <h1 className="text-4xl font-bold gradient-text glow-text mb-2">Partner Portal</h1>
+                        <h1 className="text-4xl font-bold gradient-text glow-text mb-2">Collab</h1>
                         <p className="text-muted-foreground">Welcome back, {user?.email}</p>
                     </div>
                     <button
@@ -131,8 +131,8 @@ const Portal = () => {
                         <button
                             onClick={() => setActiveTab('submissions')}
                             className={`w-full flex items-center gap-3 p-4 rounded-xl transition-all duration-300 ${activeTab === 'submissions'
-                                    ? 'bg-primary/10 border border-primary/30 text-primary shadow-lg shadow-primary/10'
-                                    : 'hover:bg-card/50 border border-transparent text-muted-foreground'
+                                ? 'bg-primary/10 border border-primary/30 text-primary shadow-lg shadow-primary/10'
+                                : 'hover:bg-card/50 border border-transparent text-muted-foreground'
                                 }`}
                         >
                             <ClipboardList className="w-5 h-5" />
@@ -142,8 +142,8 @@ const Portal = () => {
                         <button
                             onClick={() => setActiveTab('waitlist')}
                             className={`w-full flex items-center gap-3 p-4 rounded-xl transition-all duration-300 ${activeTab === 'waitlist'
-                                    ? 'bg-primary/10 border border-primary/30 text-primary shadow-lg shadow-primary/10'
-                                    : 'hover:bg-card/50 border border-transparent text-muted-foreground'
+                                ? 'bg-primary/10 border border-primary/30 text-primary shadow-lg shadow-primary/10'
+                                : 'hover:bg-card/50 border border-transparent text-muted-foreground'
                                 }`}
                         >
                             <Clock className="w-5 h-5" />
@@ -183,8 +183,8 @@ const Portal = () => {
                                                 </div>
                                                 <div className="flex items-center gap-4">
                                                     <span className={`text-xs px-3 py-1 rounded-full border ${sub.status === 'Resolved'
-                                                            ? 'border-green-500/30 bg-green-500/10 text-green-500'
-                                                            : 'border-primary/30 bg-primary/10 text-primary'
+                                                        ? 'border-green-500/30 bg-green-500/10 text-green-500'
+                                                        : 'border-primary/30 bg-primary/10 text-primary'
                                                         }`}>
                                                         {sub.status || 'Analyzing'}
                                                     </span>
@@ -254,8 +254,8 @@ const Portal = () => {
                                                                         comments.map((c) => (
                                                                             <div key={c.id} className={`flex flex-col ${c.user_id === user.id ? 'items-end' : 'items-start'}`}>
                                                                                 <div className={`max-w-[80%] p-3 rounded-xl text-sm ${c.user_id === user.id
-                                                                                        ? 'bg-primary/20 text-foreground border border-primary/20'
-                                                                                        : 'bg-card border border-border/50 text-foreground'
+                                                                                    ? 'bg-primary/20 text-foreground border border-primary/20'
+                                                                                    : 'bg-card border border-border/50 text-foreground'
                                                                                     }`}>
                                                                                     {c.content}
                                                                                 </div>
@@ -334,7 +334,7 @@ const Portal = () => {
             {/* Footer Branding */}
             <footer className="py-8 border-t border-border/10 text-center">
                 <p className="text-xs text-muted-foreground/50 uppercase tracking-[0.3em]">
-                    Engineering Agentic Intelligence • Siddhi Dynamics Portal
+                    Engineering Agentic Intelligence • Siddhi Dynamics Collab
                 </p>
             </footer>
         </div>
