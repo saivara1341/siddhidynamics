@@ -17,6 +17,7 @@ interface WaitlistModalProps {
 export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentColor }: WaitlistModalProps) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,7 +28,7 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!name.trim() || !email.trim()) {
       toast({
         title: "Missing Information",
@@ -50,6 +51,27 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
     setIsSubmitting(true);
 
     try {
+      // 1. Check for duplicate entry
+      const { data: existingEntry, error: checkError } = await supabase
+        .from('project_waitlist')
+        .select('id')
+        .eq('email', email.trim().toLowerCase())
+        .eq('project_id', projectId)
+        .maybeSingle();
+
+      if (checkError) throw checkError;
+
+      if (existingEntry) {
+        toast({
+          title: "Already Joined",
+          description: "You've already joined the waitlist for this project!",
+          variant: "default",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // 2. Insert new entry
       const { error } = await supabase
         .from('project_waitlist')
         .insert({
@@ -58,26 +80,31 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
           name: name.trim(),
           email: email.trim().toLowerCase(),
           idea_rating: rating > 0 ? rating : null,
+          comment: comment.trim() || null,
         });
 
       if (error) throw error;
 
       setIsSuccess(true);
+      toast({
+        title: "Success!",
+        description: "You've been added to the waitlist.",
+      });
+
       setTimeout(() => {
         onClose();
         setIsSuccess(false);
         setName('');
         setEmail('');
+        setComment('');
         setRating(0);
       }, 2000);
 
     } catch (error) {
-      if (import.meta.env.DEV) {
-        console.error('Error joining waitlist:', error);
-      }
+      console.error('Waitlist error:', error);
       toast({
         title: "Error",
-        description: "Failed to join waitlist. Please try again.",
+        description: "Something went wrong. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -108,10 +135,10 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
             className="relative w-full max-w-md glass-card p-8 overflow-hidden"
           >
             {/* Glow effect */}
-            <div 
+            <div
               className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 blur-3xl opacity-30"
               style={{
-                background: isPrimary 
+                background: isPrimary
                   ? 'radial-gradient(circle, hsl(25 85% 55%) 0%, transparent 70%)'
                   : 'radial-gradient(circle, hsl(85 70% 45%) 0%, transparent 70%)'
               }}
@@ -135,9 +162,8 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: 'spring', delay: 0.1 }}
-                  className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 ${
-                    isPrimary ? 'bg-primary/20 text-primary' : 'bg-accent/20 text-accent'
-                  }`}
+                  className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 ${isPrimary ? 'bg-primary/20 text-primary' : 'bg-accent/20 text-accent'
+                    }`}
                 >
                   <CheckCircle className="w-10 h-10" />
                 </motion.div>
@@ -187,6 +213,18 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
                       required
                     />
                   </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-foreground">
+                      Comments/Ideas <span className="text-muted-foreground text-xs">(Optional)</span>
+                    </label>
+                    <textarea
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                      placeholder="Share your thoughts or specific needs..."
+                      className="input-premium resize-none"
+                      rows={3}
+                    />
+                  </div>
 
                   {/* Rating */}
                   <div>
@@ -206,13 +244,12 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
                           className="p-1 transition-colors"
                         >
                           <Star
-                            className={`w-8 h-8 transition-all duration-200 ${
-                              star <= (hoveredRating || rating)
-                                ? isPrimary 
-                                  ? 'fill-primary text-primary' 
-                                  : 'fill-accent text-accent'
-                                : 'text-muted-foreground/30'
-                            }`}
+                            className={`w-8 h-8 transition-all duration-200 ${star <= (hoveredRating || rating)
+                              ? isPrimary
+                                ? 'fill-primary text-primary'
+                                : 'fill-accent text-accent'
+                              : 'text-muted-foreground/30'
+                              }`}
                           />
                         </motion.button>
                       ))}
@@ -238,11 +275,10 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
                     disabled={isSubmitting}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`w-full py-4 rounded-xl font-semibold text-primary-foreground transition-all duration-300 flex items-center justify-center gap-2 ${
-                      isPrimary 
-                        ? 'bg-gradient-to-r from-primary to-orange-400 hover:shadow-[0_0_30px_hsl(25_85%_55%/0.4)]'
-                        : 'bg-gradient-to-r from-accent to-lime-400 hover:shadow-[0_0_30px_hsl(85_70%_45%/0.4)]'
-                    }`}
+                    className={`w-full py-4 rounded-xl font-semibold text-primary-foreground transition-all duration-300 flex items-center justify-center gap-2 ${isPrimary
+                      ? 'bg-gradient-to-r from-primary to-orange-400 hover:shadow-[0_0_30px_hsl(25_85%_55%/0.4)]'
+                      : 'bg-gradient-to-r from-accent to-lime-400 hover:shadow-[0_0_30px_hsl(85_70%_45%/0.4)]'
+                      }`}
                   >
                     {isSubmitting ? (
                       <>

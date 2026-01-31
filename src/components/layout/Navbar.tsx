@@ -3,14 +3,16 @@ import { useState, useEffect } from 'react';
 import siddhiLogo from '@/assets/siddhi-logo.jpg';
 
 const navLinks = [
-  { name: 'Vision', href: '#vision' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Submit Problem', href: '#submit' },
+  { name: 'Vision', href: '/#vision' },
+  { name: 'Projects', href: '/#projects' },
+  { name: 'Submit Problem', href: '/#submit' },
+  { name: 'Partner Portal', href: '/#/portal' },
 ];
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { scrollY } = useScroll();
 
   const headerOpacity = useTransform(scrollY, [0, 100], [0, 1]);
@@ -19,6 +21,17 @@ export const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
+
+    // Check auth status
+    import('@/integrations/supabase/client').then(({ supabase }) => {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        setIsLoggedIn(!!session);
+      });
+      supabase.auth.onAuthStateChange((_event, session) => {
+        setIsLoggedIn(!!session);
+      });
+    });
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -87,7 +100,7 @@ export const Navbar = () => {
               ))}
 
               <motion.a
-                href="#submit"
+                href={isLoggedIn ? "/#/portal" : "/#submit"}
                 className="relative ml-4 px-6 py-2.5 rounded-xl font-semibold text-sm overflow-hidden group"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -97,7 +110,9 @@ export const Navbar = () => {
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-90 group-hover:opacity-100 transition-opacity" />
                 <span className="absolute inset-0 bg-gradient-to-r from-primary to-accent blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
-                <span className="relative text-primary-foreground">Get Started</span>
+                <span className="relative text-primary-foreground">
+                  {isLoggedIn ? 'Go to Portal' : 'Get Started'}
+                </span>
               </motion.a>
             </nav>
 

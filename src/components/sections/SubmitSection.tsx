@@ -17,7 +17,7 @@ export const SubmitSection = () => {
   const ref = useRef(null);
   const formRef = useRef<HTMLFormElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -60,7 +60,7 @@ export const SubmitSection = () => {
 
     try {
       const validatedData = contactSchema.parse(formData);
-      
+
       const { error } = await supabase
         .from('contact_submissions')
         .insert({
@@ -96,7 +96,7 @@ export const SubmitSection = () => {
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/5 to-background" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-primary/3 rounded-full blur-[200px]" />
-      
+
       {/* Grid pattern */}
       <div className="absolute inset-0 grid-pattern opacity-20" />
 
@@ -164,7 +164,7 @@ export const SubmitSection = () => {
                   <label className="block text-sm font-medium text-foreground">
                     What would you like to discuss?
                   </label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {[
                       { value: 'problem', label: 'Real-World Problem', icon: '🎯', hasQuestionMark: false },
                       { value: 'requirement', label: 'Project Requirement', icon: '📋', hasQuestionMark: false },
@@ -174,11 +174,10 @@ export const SubmitSection = () => {
                         key={type.value}
                         type="button"
                         onClick={() => setFormData(prev => ({ ...prev, inquiryType: type.value }))}
-                        className={`p-4 rounded-xl border-2 transition-all duration-300 text-left flex sm:flex-col items-center sm:items-start gap-3 sm:gap-0 ${
-                          formData.inquiryType === type.value
+                        className={`p-4 rounded-xl border-2 transition-all duration-300 text-left flex sm:flex-col items-center sm:items-start gap-3 sm:gap-0 ${formData.inquiryType === type.value
                             ? 'border-primary bg-primary/10 shadow-lg shadow-primary/20'
                             : 'border-border/50 hover:border-primary/50 bg-background/50'
-                        }`}
+                          }`}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
@@ -188,9 +187,8 @@ export const SubmitSection = () => {
                             <span className="absolute -top-1 -right-3 text-xs font-bold text-red-500">?</span>
                           )}
                         </span>
-                        <span className={`text-sm font-medium leading-tight ${
-                          formData.inquiryType === type.value ? 'text-primary' : 'text-muted-foreground'
-                        }`}>
+                        <span className={`text-sm font-medium leading-tight ${formData.inquiryType === type.value ? 'text-primary' : 'text-muted-foreground'
+                          }`}>
                           {type.label}
                         </span>
                       </motion.button>
@@ -200,18 +198,17 @@ export const SubmitSection = () => {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label 
-                      htmlFor="name" 
-                      className={`block text-sm font-medium transition-colors duration-300 ${
-                        focusedField === 'name' ? 'text-primary' : 'text-foreground'
-                      }`}
+                    <label
+                      htmlFor="name"
+                      className={`block text-sm font-medium transition-colors duration-300 ${focusedField === 'name' ? 'text-primary' : 'text-foreground'
+                        }`}
                     >
                       Full Name <span className="text-primary">*</span>
                     </label>
                     <motion.div
-                      animate={{ 
-                        boxShadow: focusedField === 'name' 
-                          ? '0 0 30px hsl(25 85% 55% / 0.2)' 
+                      animate={{
+                        boxShadow: focusedField === 'name'
+                          ? '0 0 30px hsl(25 85% 55% / 0.2)'
                           : '0 0 0px transparent'
                       }}
                       className="rounded-xl"
@@ -230,20 +227,19 @@ export const SubmitSection = () => {
                       />
                     </motion.div>
                   </div>
-                  
+
                   <div className="space-y-2">
-                    <label 
-                      htmlFor="email" 
-                      className={`block text-sm font-medium transition-colors duration-300 ${
-                        focusedField === 'email' ? 'text-primary' : 'text-foreground'
-                      }`}
+                    <label
+                      htmlFor="email"
+                      className={`block text-sm font-medium transition-colors duration-300 ${focusedField === 'email' ? 'text-primary' : 'text-foreground'
+                        }`}
                     >
                       Email Address <span className="text-primary">*</span>
                     </label>
                     <motion.div
-                      animate={{ 
-                        boxShadow: focusedField === 'email' 
-                          ? '0 0 30px hsl(25 85% 55% / 0.2)' 
+                      animate={{
+                        boxShadow: focusedField === 'email'
+                          ? '0 0 30px hsl(25 85% 55% / 0.2)'
                           : '0 0 0px transparent'
                       }}
                       className="rounded-xl"
@@ -266,18 +262,17 @@ export const SubmitSection = () => {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label 
-                      htmlFor="designation" 
-                      className={`block text-sm font-medium transition-colors duration-300 ${
-                        focusedField === 'designation' ? 'text-primary' : 'text-foreground'
-                      }`}
+                    <label
+                      htmlFor="designation"
+                      className={`block text-sm font-medium transition-colors duration-300 ${focusedField === 'designation' ? 'text-primary' : 'text-foreground'
+                        }`}
                     >
                       Designation <span className="text-muted-foreground">(Optional)</span>
                     </label>
                     <motion.div
-                      animate={{ 
-                        boxShadow: focusedField === 'designation' 
-                          ? '0 0 30px hsl(25 85% 55% / 0.2)' 
+                      animate={{
+                        boxShadow: focusedField === 'designation'
+                          ? '0 0 30px hsl(25 85% 55% / 0.2)'
                           : '0 0 0px transparent'
                       }}
                       className="rounded-xl"
@@ -297,18 +292,17 @@ export const SubmitSection = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <label 
-                      htmlFor="organization" 
-                      className={`block text-sm font-medium transition-colors duration-300 ${
-                        focusedField === 'organization' ? 'text-accent' : 'text-foreground'
-                      }`}
+                    <label
+                      htmlFor="organization"
+                      className={`block text-sm font-medium transition-colors duration-300 ${focusedField === 'organization' ? 'text-accent' : 'text-foreground'
+                        }`}
                     >
                       Organization <span className="text-muted-foreground">(Optional)</span>
                     </label>
                     <motion.div
-                      animate={{ 
-                        boxShadow: focusedField === 'organization' 
-                          ? '0 0 30px hsl(85 70% 45% / 0.2)' 
+                      animate={{
+                        boxShadow: focusedField === 'organization'
+                          ? '0 0 30px hsl(85 70% 45% / 0.2)'
                           : '0 0 0px transparent'
                       }}
                       className="rounded-xl"
@@ -329,11 +323,10 @@ export const SubmitSection = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label 
-                    htmlFor="message" 
-                    className={`block text-sm font-medium transition-colors duration-300 ${
-                      focusedField === 'message' ? 'text-primary' : 'text-foreground'
-                    }`}
+                  <label
+                    htmlFor="message"
+                    className={`block text-sm font-medium transition-colors duration-300 ${focusedField === 'message' ? 'text-primary' : 'text-foreground'
+                      }`}
                   >
                     {formData.inquiryType === 'problem' && 'Problem Statement'}
                     {formData.inquiryType === 'requirement' && 'Project Requirements'}
@@ -341,9 +334,9 @@ export const SubmitSection = () => {
                     {' '}<span className="text-primary">*</span>
                   </label>
                   <motion.div
-                    animate={{ 
-                      boxShadow: focusedField === 'message' 
-                        ? '0 0 30px hsl(25 85% 55% / 0.2)' 
+                    animate={{
+                      boxShadow: focusedField === 'message'
+                        ? '0 0 30px hsl(25 85% 55% / 0.2)'
                         : '0 0 0px transparent'
                     }}
                     className="rounded-xl"
@@ -356,11 +349,11 @@ export const SubmitSection = () => {
                       onFocus={() => setFocusedField('message')}
                       onBlur={() => setFocusedField(null)}
                       placeholder={
-                        formData.inquiryType === 'problem' 
+                        formData.inquiryType === 'problem'
                           ? 'Describe the real-world challenge you\'re facing in detail...'
                           : formData.inquiryType === 'requirement'
-                          ? 'Describe your project requirements, features needed, timeline expectations...'
-                          : 'How can we help you? Share your questions or ideas...'
+                            ? 'Describe your project requirements, features needed, timeline expectations...'
+                            : 'How can we help you? Share your questions or ideas...'
                       }
                       rows={6}
                       className="input-premium resize-none"
@@ -400,7 +393,7 @@ export const SubmitSection = () => {
                       )}
                     </span>
                   </motion.button>
-                  
+
                   <p className="text-sm text-muted-foreground flex items-center gap-2">
                     <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -439,17 +432,16 @@ export const SubmitSection = () => {
                 color: 'primary',
               },
             ].map((item, index) => (
-              <motion.div 
-                key={item.step} 
+              <motion.div
+                key={item.step}
                 className="text-center group"
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
                 whileHover={{ y: -5 }}
               >
-                <div className={`text-6xl font-bold mb-4 opacity-40 group-hover:opacity-70 transition-opacity ${
-                  item.color === 'primary' ? 'gradient-text' : 'gradient-text-reverse'
-                }`}>
+                <div className={`text-6xl font-bold mb-4 opacity-40 group-hover:opacity-70 transition-opacity ${item.color === 'primary' ? 'gradient-text' : 'gradient-text-reverse'
+                  }`}>
                   {item.step}
                 </div>
                 <h4 className="text-xl font-bold text-foreground mb-2" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
