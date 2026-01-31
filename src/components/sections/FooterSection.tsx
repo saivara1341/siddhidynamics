@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import siddhiLogo from '@/assets/siddhi-dynamics-logo.jpeg';
+import siddhiLogo from '@/assets/siddhi-logo.jpg';
 
 const linkVariants = {
   hidden: { opacity: 0, y: 10 },
@@ -49,7 +49,7 @@ export const FooterSection = () => {
               <img
                 src={siddhiLogo}
                 alt="Siddhi Dynamics"
-                className="relative w-full h-full object-contain rounded-xl"
+                className="relative w-full h-full object-contain mix-blend-screen"
               />
             </motion.div>
             <div>

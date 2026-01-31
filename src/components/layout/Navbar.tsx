@@ -45,18 +45,14 @@ export const Navbar = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <motion.div
-                className="relative w-14 h-14 flex items-center justify-center"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-60" />
+              <div className="relative w-14 h-14 flex items-center justify-center">
+                <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl opacity-60" />
                 <img
                   src={siddhiLogo}
                   alt="Siddhi Dynamics Logo"
                   className="relative w-full h-full object-contain mix-blend-screen drop-shadow-[0_0_15px_rgba(251,146,60,0.5)]"
                 />
-              </motion.div>
+              </div>
               <div className="flex flex-col">
                 <span className="font-bold text-lg text-foreground tracking-tight" style={{ fontFamily: "'Orbitron', sans-serif" }}>
                   SIDDHI
