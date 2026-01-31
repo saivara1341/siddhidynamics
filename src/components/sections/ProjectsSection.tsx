@@ -264,60 +264,45 @@ const ProjectCard = ({
           </motion.p>
         </div>
 
-        {/* Read More Indicator */}
-        <motion.button
-          className={`text-xs font-medium mb-4 ${isPrimary ? 'text-primary' : 'text-accent'} hover:underline`}
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsExpanded(!isExpanded);
-          }}
-        >
-          {isExpanded ? 'Show Less ↑' : 'Read More ↓'}
-        </motion.button>
+        {/* Action Buttons Container */}
+        <div className="relative z-[30] space-y-4">
+          {/* Read More Indicator */}
+          <motion.button
+            className={`text-xs font-medium ${isPrimary ? 'text-primary' : 'text-accent'} hover:underline block`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsExpanded(!isExpanded);
+            }}
+          >
+            {isExpanded ? 'Show Less ↑' : 'Read More ↓'}
+          </motion.button>
 
-        {/* Features */}
-        <div className="flex flex-wrap gap-2">
-          {project.features.map((feature, featureIndex) => (
-            <motion.span
-              key={feature}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 + featureIndex * 0.05 }}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 border ${isPrimary
-                ? 'bg-primary/10 text-primary border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/40'
-                : 'bg-accent/10 text-accent border-accent/20 group-hover:bg-accent/20 group-hover:border-accent/40'
+          {/* Action Button */}
+          <div className="pt-4 border-t border-border/30">
+            <motion.button
+              onClick={handleActionClick}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={`w-full py-3 px-6 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 pointer-events-auto ${project.url
+                ? 'bg-gradient-to-r from-primary to-orange-400 text-primary-foreground hover:shadow-[0_0_20px_hsl(25_85%_55%/0.4)]'
+                : isPrimary
+                  ? 'bg-primary/10 text-primary border border-primary/30 hover:bg-primary/20 hover:border-primary/50'
+                  : 'bg-accent/10 text-accent border border-accent/30 hover:bg-accent/20 hover:border-accent/50'
                 }`}
             >
-              {feature}
-            </motion.span>
-          ))}
-        </div>
-
-        {/* Action Button */}
-        <div className="mt-6 pt-4 border-t border-border/30 relative z-10">
-          <motion.button
-            onClick={handleActionClick}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className={`w-full py-3 px-6 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 ${project.url
-              ? 'bg-gradient-to-r from-primary to-orange-400 text-primary-foreground hover:shadow-[0_0_20px_hsl(25_85%_55%/0.4)]'
-              : isPrimary
-                ? 'bg-primary/10 text-primary border border-primary/30 hover:bg-primary/20 hover:border-primary/50'
-                : 'bg-accent/10 text-accent border border-accent/30 hover:bg-accent/20 hover:border-accent/50'
-              }`}
-          >
-            {project.url ? (
-              <>
-                <ExternalLink className="w-4 h-4" />
-                Access Platform
-              </>
-            ) : (
-              <>
-                <Bell className="w-4 h-4" />
-                Join Waitlist
-              </>
-            )}
-          </motion.button>
+              {project.url ? (
+                <>
+                  <ExternalLink className="w-4 h-4" />
+                  Access Platform
+                </>
+              ) : (
+                <>
+                  <Bell className="w-4 h-4" />
+                  Join Waitlist
+                </>
+              )}
+            </motion.button>
+          </div>
         </div>
       </motion.div>
     </motion.div>

@@ -1,10 +1,4 @@
-import { useState, useEffect } from "react";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Navbar } from "@/components/layout/Navbar";
+import { CustomAuth } from "@/components/auth/CustomAuth";
 
 const AuthPage = () => {
     const [session, setSession] = useState<any>(null);
@@ -45,33 +39,7 @@ const AuthPage = () => {
                         <p className="text-muted-foreground">Log in to track your submissions and collaborate with us.</p>
                     </div>
 
-                    <Auth
-                        supabaseClient={supabase}
-                        appearance={{
-                            theme: ThemeSupa,
-                            variables: {
-                                default: {
-                                    colors: {
-                                        brand: 'hsl(25 85% 55%)',
-                                        brandAccent: 'hsl(25 85% 65%)',
-                                        inputBackground: 'hsl(20 15% 6%)',
-                                        inputText: 'white',
-                                        inputPlaceholder: 'hsl(30 10% 55%)',
-                                        inputBorder: 'hsl(25 50% 30% / 0.3)',
-                                        inputBorderFocus: 'hsl(25 85% 55% / 0.6)',
-                                        dividerBackground: 'hsl(25 30% 20%)',
-                                    },
-                                },
-                            },
-                            className: {
-                                container: 'auth-container',
-                                button: 'btn-primary-auth',
-                                input: 'input-premium-auth',
-                            }
-                        }}
-                        providers={[]}
-                        theme="dark"
-                    />
+                    <CustomAuth />
                 </motion.div>
             </div>
 

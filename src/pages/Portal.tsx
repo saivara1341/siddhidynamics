@@ -93,7 +93,7 @@ const Portal = () => {
 
     const logout = async () => {
         await supabase.auth.signOut();
-        navigate("/auth");
+        navigate("/");
     };
 
     if (loading) return (
@@ -116,13 +116,19 @@ const Portal = () => {
                         <h1 className="text-4xl font-bold gradient-text glow-text mb-2">Collab</h1>
                         <p className="text-muted-foreground">Welcome back, {user?.email}</p>
                     </div>
-                    <button
-                        onClick={logout}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-xl glass-card border border-border/50 hover:bg-destructive/10 hover:border-destructive/30 transition-all text-sm font-medium"
-                    >
-                        <LogOut className="w-4 h-4" />
+                </div>
+
+                {/* Floating Sign Out Icon Button */}
+                <button
+                    onClick={logout}
+                    className="fixed top-6 right-6 z-[60] p-3 rounded-full glass-card border border-border/50 hover:bg-destructive/10 hover:border-destructive/30 hover:text-destructive transition-all group"
+                    title="Sign Out"
+                >
+                    <LogOut className="w-5 h-5" />
+                    <span className="absolute right-full mr-3 px-2 py-1 bg-background border border-border rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                         Sign Out
-                    </button>
+                    </span>
+                </button>
                 </div>
 
                 <div className="grid lg:grid-cols-12 gap-8">
@@ -329,15 +335,15 @@ const Portal = () => {
                         )}
                     </div>
                 </div>
-            </main>
+            </main >
 
-            {/* Footer Branding */}
-            <footer className="py-8 border-t border-border/10 text-center">
-                <p className="text-xs text-muted-foreground/50 uppercase tracking-[0.3em]">
-                    Engineering Agentic Intelligence • Siddhi Dynamics Collab
-                </p>
-            </footer>
-        </div>
+    {/* Footer Branding */ }
+    < footer className = "py-8 border-t border-border/10 text-center" >
+        <p className="text-xs text-muted-foreground/50 uppercase tracking-[0.3em]">
+            Engineering Agentic Intelligence • Siddhi Dynamics Collab
+        </p>
+            </footer >
+        </div >
     );
 };
 
