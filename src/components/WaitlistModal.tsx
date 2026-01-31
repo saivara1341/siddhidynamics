@@ -220,9 +220,9 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
                     <textarea
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
-                      placeholder="Share your thoughts or specific needs..."
-                      className="input-premium resize-none"
-                      rows={3}
+                      placeholder="Share your specific needs, ideas, or feedback for this project..."
+                      className="input-premium resize-none min-h-[100px] border-primary/20"
+                      rows={4}
                     />
                   </div>
 

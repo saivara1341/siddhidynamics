@@ -1,5 +1,6 @@
 import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { Mic, MicOff } from 'lucide-react';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { supabase } from '@/integrations/supabase/client';
@@ -28,6 +29,7 @@ export const SubmitSection = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [isListening, setIsListening] = useState(false);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -46,6 +48,51 @@ export const SubmitSection = () => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const toggleListening = () => {
+    if (isListening) {
+      setIsListening(false);
+      return;
+    }
+
+    const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        setIsListening(true);
+        toast.info('Listening... Speak now.', { duration: 2000 });
+      };
+
+      recognition.onresult = (event: any) => {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
+        }
+        setFormData(prev => ({
+          ...prev,
+          message: prev.message + (prev.message ? ' ' : '') + transcript
+        }));
+      };
+
+      recognition.onerror = (event: any) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+        toast.error('Voice recognition failed. Please check permissions.');
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.start();
+    } else {
+      toast.error('Voice recognition not supported in this browser.');
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -175,8 +222,8 @@ export const SubmitSection = () => {
                         type="button"
                         onClick={() => setFormData(prev => ({ ...prev, inquiryType: type.value }))}
                         className={`p-4 rounded-xl border-2 transition-all duration-300 text-left flex sm:flex-col items-center sm:items-start gap-3 sm:gap-0 ${formData.inquiryType === type.value
-                            ? 'border-primary bg-primary/10 shadow-lg shadow-primary/20'
-                            : 'border-border/50 hover:border-primary/50 bg-background/50'
+                          ? 'border-primary bg-primary/10 shadow-lg shadow-primary/20'
+                          : 'border-border/50 hover:border-primary/50 bg-background/50'
                           }`}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -341,24 +388,39 @@ export const SubmitSection = () => {
                     }}
                     className="rounded-xl"
                   >
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      onFocus={() => setFocusedField('message')}
-                      onBlur={() => setFocusedField(null)}
-                      placeholder={
-                        formData.inquiryType === 'problem'
-                          ? 'Describe the real-world challenge you\'re facing in detail...'
-                          : formData.inquiryType === 'requirement'
-                            ? 'Describe your project requirements, features needed, timeline expectations...'
-                            : 'How can we help you? Share your questions or ideas...'
-                      }
-                      rows={6}
-                      className="input-premium resize-none"
-                      required
-                    />
+                    <div className="relative">
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        onFocus={() => setFocusedField('message')}
+                        onBlur={() => setFocusedField(null)}
+                        placeholder={
+                          formData.inquiryType === 'problem'
+                            ? 'Describe the real-world challenge you\'re facing in detail...'
+                            : formData.inquiryType === 'requirement'
+                              ? 'Describe your project requirements, features needed, timeline expectations...'
+                              : 'How can we help you? Share your questions or ideas...'
+                        }
+                        rows={6}
+                        className="input-premium resize-none pr-14"
+                        required
+                      />
+                      <motion.button
+                        type="button"
+                        onClick={toggleListening}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className={`absolute bottom-4 right-4 p-3 rounded-full transition-all duration-500 z-20 ${isListening
+                            ? 'bg-red-500 text-white animate-pulse shadow-[0_0_20px_rgba(239,68,68,0.5)]'
+                            : 'bg-primary/10 text-primary hover:bg-primary/20'
+                          }`}
+                        title={isListening ? "Stop Listening" : "Start Voice submission"}
+                      >
+                        {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+                      </motion.button>
+                    </div>
                   </motion.div>
                 </div>
 

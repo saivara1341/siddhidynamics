@@ -18,6 +18,9 @@ const App = () => (
       <HashRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/vision" element={<Index />} />
+          <Route path="/projects" element={<Index />} />
+          <Route path="/submit" element={<Index />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/portal" element={<Portal />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

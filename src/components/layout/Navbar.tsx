@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import siddhiLogo from '@/assets/siddhi-logo.jpg';
 
 const navLinks = [
-  { name: 'Vision', href: '/#vision' },
-  { name: 'Projects', href: '/#projects' },
-  { name: 'Submit Problem', href: '/#submit' },
-  { name: 'Partner Portal', href: '/#/portal' },
+  { name: 'Vision', href: '#/vision' },
+  { name: 'Projects', href: '#/projects' },
+  { name: 'Submit Problem', href: '#/submit' },
+  { name: 'Partner Portal', href: '#/portal' },
 ];
 
 export const Navbar = () => {
@@ -100,7 +100,7 @@ export const Navbar = () => {
               ))}
 
               <motion.a
-                href={isLoggedIn ? "/#/portal" : "/#submit"}
+                href={isLoggedIn ? "#/portal" : "#/submit"}
                 className="relative ml-4 px-6 py-2.5 rounded-xl font-semibold text-sm overflow-hidden group"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
