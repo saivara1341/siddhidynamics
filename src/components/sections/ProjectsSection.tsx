@@ -264,6 +264,24 @@ const ProjectCard = ({
           </motion.p>
         </div>
 
+        {/* Features */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.features.map((feature, featureIndex) => (
+            <motion.span
+              key={feature}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3 + featureIndex * 0.05 }}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 border ${isPrimary
+                ? 'bg-primary/10 text-primary border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/40'
+                : 'bg-accent/10 text-accent border-accent/20 group-hover:bg-accent/20 group-hover:border-accent/40'
+                }`}
+            >
+              {feature}
+            </motion.span>
+          ))}
+        </div>
+
         {/* Action Buttons Container */}
         <div className="relative z-[30] space-y-4">
           {/* Read More Indicator */}

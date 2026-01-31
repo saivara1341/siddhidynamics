@@ -129,7 +129,6 @@ const Portal = () => {
                         Sign Out
                     </span>
                 </button>
-                </div>
 
                 <div className="grid lg:grid-cols-12 gap-8">
                     {/* Sidebar Tabs */}
@@ -335,15 +334,15 @@ const Portal = () => {
                         )}
                     </div>
                 </div>
-            </main >
+            </main>
 
-    {/* Footer Branding */ }
-    < footer className = "py-8 border-t border-border/10 text-center" >
-        <p className="text-xs text-muted-foreground/50 uppercase tracking-[0.3em]">
-            Engineering Agentic Intelligence • Siddhi Dynamics Collab
-        </p>
-            </footer >
-        </div >
+            {/* Footer Branding */}
+            <footer className="py-8 border-t border-border/10 text-center">
+                <p className="text-xs text-muted-foreground/50 uppercase tracking-[0.3em]">
+                    Engineering Agentic Intelligence • Siddhi Dynamics Collab
+                </p>
+            </footer>
+        </div>
     );
 };
 
