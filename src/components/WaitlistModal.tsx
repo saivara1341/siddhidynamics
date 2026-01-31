@@ -1,0 +1,264 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Star, Loader2, CheckCircle } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
+import { z } from 'zod';
+
+const emailSchema = z.string().email();
+interface WaitlistModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  projectId: string;
+  projectName: string;
+  accentColor: 'primary' | 'accent';
+}
+
+export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentColor }: WaitlistModalProps) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [rating, setRating] = useState(0);
+  const [hoveredRating, setHoveredRating] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const { toast } = useToast();
+
+  const isPrimary = accentColor === 'primary';
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!name.trim() || !email.trim()) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in your name and email.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const emailValidation = emailSchema.safeParse(email.trim());
+    if (!emailValidation.success) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase
+        .from('project_waitlist')
+        .insert({
+          project_id: projectId,
+          project_name: projectName,
+          name: name.trim(),
+          email: email.trim().toLowerCase(),
+          idea_rating: rating > 0 ? rating : null,
+        });
+
+      if (error) throw error;
+
+      setIsSuccess(true);
+      setTimeout(() => {
+        onClose();
+        setIsSuccess(false);
+        setName('');
+        setEmail('');
+        setRating(0);
+      }, 2000);
+
+    } catch (error) {
+      if (import.meta.env.DEV) {
+        console.error('Error joining waitlist:', error);
+      }
+      toast({
+        title: "Error",
+        description: "Failed to join waitlist. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onClick={onClose}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-background/80 backdrop-blur-xl" />
+
+          {/* Modal */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-md glass-card p-8 overflow-hidden"
+          >
+            {/* Glow effect */}
+            <div 
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 blur-3xl opacity-30"
+              style={{
+                background: isPrimary 
+                  ? 'radial-gradient(circle, hsl(25 85% 55%) 0%, transparent 70%)'
+                  : 'radial-gradient(circle, hsl(85 70% 45%) 0%, transparent 70%)'
+              }}
+            />
+
+            {/* Close button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-muted transition-colors"
+            >
+              <X className="w-5 h-5 text-muted-foreground" />
+            </button>
+
+            {isSuccess ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex flex-col items-center justify-center py-8 text-center"
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: 'spring', delay: 0.1 }}
+                  className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 ${
+                    isPrimary ? 'bg-primary/20 text-primary' : 'bg-accent/20 text-accent'
+                  }`}
+                >
+                  <CheckCircle className="w-10 h-10" />
+                </motion.div>
+                <h3 className="text-2xl font-bold font-display mb-2">You're on the list!</h3>
+                <p className="text-muted-foreground">
+                  We'll notify you when {projectName} launches.
+                </p>
+              </motion.div>
+            ) : (
+              <>
+                {/* Header */}
+                <div className="relative text-center mb-8">
+                  <h2 className="text-2xl font-bold font-display mb-2">
+                    Join the Waitlist
+                  </h2>
+                  <p className="text-muted-foreground">
+                    Be the first to experience <span className={isPrimary ? 'text-primary' : 'text-accent'}>{projectName}</span>
+                  </p>
+                </div>
+
+                {/* Form */}
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-foreground">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Enter your name"
+                      className="input-premium"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-foreground">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your email"
+                      className="input-premium"
+                      required
+                    />
+                  </div>
+
+                  {/* Rating */}
+                  <div>
+                    <label className="block text-sm font-medium mb-3 text-foreground">
+                      Rate Our Idea
+                    </label>
+                    <div className="flex items-center justify-center gap-2">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <motion.button
+                          key={star}
+                          type="button"
+                          onClick={() => setRating(star)}
+                          onMouseEnter={() => setHoveredRating(star)}
+                          onMouseLeave={() => setHoveredRating(0)}
+                          whileHover={{ scale: 1.2 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="p-1 transition-colors"
+                        >
+                          <Star
+                            className={`w-8 h-8 transition-all duration-200 ${
+                              star <= (hoveredRating || rating)
+                                ? isPrimary 
+                                  ? 'fill-primary text-primary' 
+                                  : 'fill-accent text-accent'
+                                : 'text-muted-foreground/30'
+                            }`}
+                          />
+                        </motion.button>
+                      ))}
+                    </div>
+                    {rating > 0 && (
+                      <motion.p
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-center text-sm text-muted-foreground mt-2"
+                      >
+                        {rating === 1 && "We'll do better!"}
+                        {rating === 2 && "Thanks for the feedback!"}
+                        {rating === 3 && "Good to know!"}
+                        {rating === 4 && "Great! We're on track!"}
+                        {rating === 5 && "Amazing! You love it! 🎉"}
+                      </motion.p>
+                    )}
+                  </div>
+
+                  {/* Submit button */}
+                  <motion.button
+                    type="submit"
+                    disabled={isSubmitting}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`w-full py-4 rounded-xl font-semibold text-primary-foreground transition-all duration-300 flex items-center justify-center gap-2 ${
+                      isPrimary 
+                        ? 'bg-gradient-to-r from-primary to-orange-400 hover:shadow-[0_0_30px_hsl(25_85%_55%/0.4)]'
+                        : 'bg-gradient-to-r from-accent to-lime-400 hover:shadow-[0_0_30px_hsl(85_70%_45%/0.4)]'
+                    }`}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Joining...
+                      </>
+                    ) : (
+                      'Join Waitlist'
+                    )}
+                  </motion.button>
+                </form>
+              </>
+            )}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
