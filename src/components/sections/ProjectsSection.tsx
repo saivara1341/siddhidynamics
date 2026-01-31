@@ -318,13 +318,13 @@ const ProjectCard = ({
           ))}
         </div>
 
-        {/* Action Button */}
-        <div className="mt-6 pt-4 border-t border-border/30 relative z-20" style={{ transform: 'translateZ(10px)' }}>
+        {/* Action Button Container */}
+        <div className="mt-6 pt-4 border-t border-border/30 relative z-[50]">
           <motion.button
             onClick={handleActionClick}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`w-full py-3 px-6 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 relative ${project.url
+            className={`w-full py-3.5 px-6 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 relative ${project.url
               ? 'bg-gradient-to-r from-primary to-orange-400 text-primary-foreground shadow-[0_4px_15px_rgba(251,146,60,0.3)] hover:shadow-[0_0_25px_hsl(25_85%_55%/0.5)]'
               : isPrimary
                 ? 'bg-primary/10 text-primary border border-primary/30 hover:bg-primary/20 hover:border-primary/50'

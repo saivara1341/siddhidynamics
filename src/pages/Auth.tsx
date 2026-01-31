@@ -84,15 +84,37 @@ const AuthPage = () => {
             <ArrowLeft className="w-5 h-5" />
           </button>
 
-          <div className="text-center mb-10 pt-4">
+          <div className="text-center mb-8 pt-4">
             <h1 className="text-3xl font-bold gradient-text glow-text mb-2">
               {isLogin ? "Welcome Back" : "Join the Future"}
             </h1>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground text-sm mb-8">
               {isLogin
                 ? "Log in to track your submissions and collaborate."
                 : "Create an account to start your journey with us."}
             </p>
+
+            {/* Mode Selection Buttons */}
+            <div className="flex p-1 bg-white/5 rounded-xl border border-white/10 mb-2">
+              <button
+                onClick={() => setIsLogin(true)}
+                className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${isLogin
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                    : "text-muted-foreground hover:text-foreground"
+                  }`}
+              >
+                Login
+              </button>
+              <button
+                onClick={() => setIsLogin(false)}
+                className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${!isLogin
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                    : "text-muted-foreground hover:text-foreground"
+                  }`}
+              >
+                Sign Up
+              </button>
+            </div>
           </div>
 
           <form onSubmit={handleAuth} className="space-y-5">
@@ -112,7 +134,7 @@ const AuthPage = () => {
                       required
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      placeholder="John Doe"
+                      placeholder="Your Name"
                       className="input-premium py-3 pl-12"
                     />
                   </div>
@@ -171,14 +193,9 @@ const AuthPage = () => {
           </form>
 
           <div className="mt-8 text-center border-t border-border/30 pt-6">
-            <button
-              onClick={() => setIsLogin(!isLogin)}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors"
-            >
-              {isLogin
-                ? "Don't have an account? Sign Up"
-                : "Already have an account? Log In"}
-            </button>
+            <p className="text-xs text-muted-foreground/50 uppercase tracking-[0.2em] mb-4">
+              Engineering Agentic Intelligence
+            </p>
           </div>
         </motion.div>
       </div>
