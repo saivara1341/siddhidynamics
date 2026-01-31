@@ -22,15 +22,15 @@ export const FooterSection = () => {
   return (
     <footer ref={ref} className="py-20 border-t border-border/30 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-t from-secondary/10 to-transparent" />
-      <motion.div 
+      <motion.div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/3 rounded-full blur-[150px]"
-        animate={{ 
+        animate={{
           scale: [1, 1.1, 1],
           opacity: [0.3, 0.5, 0.3]
         }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       />
-      
+
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <motion.div
@@ -40,16 +40,16 @@ export const FooterSection = () => {
             transition={{ duration: 0.8 }}
             className="flex items-center gap-4"
           >
-            <motion.div 
+            <motion.div
               className="relative w-14 h-14"
               whileHover={{ rotate: 5, scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
               <div className="absolute inset-0 bg-primary/20 rounded-xl blur-xl" />
-              <img 
-                src={siddhiLogo} 
+              <img
+                src={siddhiLogo}
                 alt="Siddhi Dynamics"
-                className="relative w-full h-full object-contain rounded-xl"
+                className="relative w-full h-full object-contain mix-blend-screen drop-shadow-[0_0_12px_rgba(255,165,0,0.6)]"
               />
             </motion.div>
             <div>
@@ -72,9 +72,9 @@ export const FooterSection = () => {
               { name: 'Projects', href: '#projects' },
               { name: 'Submit Problem', href: '#submit' },
             ].map((link, index) => (
-              <motion.a 
+              <motion.a
                 key={link.name}
-                href={link.href} 
+                href={link.href}
                 custom={index}
                 variants={linkVariants}
                 className="relative text-sm text-muted-foreground hover:text-foreground transition-colors group"
@@ -82,7 +82,7 @@ export const FooterSection = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 {link.name}
-                <motion.span 
+                <motion.span
                   className="absolute -bottom-1 left-0 h-[2px] bg-gradient-to-r from-primary to-accent"
                   initial={{ width: 0 }}
                   whileHover={{ width: "100%" }}
@@ -142,7 +142,7 @@ export const FooterSection = () => {
           transition={{ delay: 0.6, duration: 0.8 }}
           className="mt-16 pt-8 border-t border-border/30 flex flex-col md:flex-row items-center justify-between gap-4"
         >
-          <motion.p 
+          <motion.p
             className="text-sm text-muted-foreground"
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
@@ -150,15 +150,15 @@ export const FooterSection = () => {
           >
             © {new Date().getFullYear()} Siddhi Dynamics LLP. All rights reserved.
           </motion.p>
-          <motion.p 
+          <motion.p
             className="text-xs text-muted-foreground/60 flex items-center gap-2"
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.8 }}
           >
-            <motion.span 
+            <motion.span
               className="w-2 h-2 rounded-full bg-accent"
-              animate={{ 
+              animate={{
                 scale: [1, 1.3, 1],
                 opacity: [0.6, 1, 0.6]
               }}

@@ -12,7 +12,7 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
-  
+
   const headerOpacity = useTransform(scrollY, [0, 100], [0, 1]);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export const Navbar = () => {
           style={{ opacity: headerOpacity }}
           className="absolute inset-0 backdrop-blur-2xl bg-background/60 border-b border-border/50"
         />
-        
+
         <div className={`relative container mx-auto px-6 transition-all duration-500 ${scrolled ? 'py-3' : 'py-5'}`}>
           <div className="flex items-center justify-between">
             <motion.a
@@ -45,16 +45,16 @@ export const Navbar = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <motion.div 
+              <motion.div
                 className="relative w-12 h-12 flex items-center justify-center rounded-xl overflow-hidden"
                 whileHover={{ rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <div className="absolute inset-0 bg-primary/20 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-500" />
-                <img 
-                  src={siddhiLogo} 
-                  alt="Siddhi Dynamics Logo" 
-                  className="relative w-full h-full object-cover rounded-xl"
+                <img
+                  src={siddhiLogo}
+                  alt="Siddhi Dynamics Logo"
+                  className="relative w-full h-full object-contain mix-blend-screen drop-shadow-[0_0_12px_rgba(255,165,0,0.6)]"
                 />
               </motion.div>
               <div className="flex flex-col">
@@ -89,7 +89,7 @@ export const Navbar = () => {
                   />
                 </motion.a>
               ))}
-              
+
               <motion.a
                 href="#submit"
                 className="relative ml-4 px-6 py-2.5 rounded-xl font-semibold text-sm overflow-hidden group"
@@ -106,26 +106,26 @@ export const Navbar = () => {
             </nav>
 
             {/* Mobile menu button */}
-            <motion.button 
+            <motion.button
               className="md:hidden relative w-10 h-10 flex items-center justify-center"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               whileTap={{ scale: 0.9 }}
             >
               <div className="flex flex-col gap-1.5">
-                <motion.span 
+                <motion.span
                   className="w-6 h-0.5 bg-foreground rounded-full"
-                  animate={{ 
+                  animate={{
                     rotate: mobileMenuOpen ? 45 : 0,
                     y: mobileMenuOpen ? 8 : 0
                   }}
                 />
-                <motion.span 
+                <motion.span
                   className="w-6 h-0.5 bg-foreground rounded-full"
                   animate={{ opacity: mobileMenuOpen ? 0 : 1 }}
                 />
-                <motion.span 
+                <motion.span
                   className="w-6 h-0.5 bg-foreground rounded-full"
-                  animate={{ 
+                  animate={{
                     rotate: mobileMenuOpen ? -45 : 0,
                     y: mobileMenuOpen ? -8 : 0
                   }}
@@ -158,9 +158,9 @@ export const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
               className="text-2xl font-display font-semibold text-foreground"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ 
-                opacity: mobileMenuOpen ? 1 : 0, 
-                y: mobileMenuOpen ? 0 : 20 
+              animate={{
+                opacity: mobileMenuOpen ? 1 : 0,
+                y: mobileMenuOpen ? 0 : 20
               }}
               transition={{ delay: 0.1 * index }}
             >
