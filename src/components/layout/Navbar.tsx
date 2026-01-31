@@ -54,7 +54,7 @@ export const Navbar = () => {
                 <img
                   src={siddhiLogo}
                   alt="Siddhi Dynamics Logo"
-                  className="relative w-full h-full object-contain mix-blend-screen drop-shadow-[0_0_12px_rgba(255,165,0,0.6)]"
+                  className="relative w-full h-full object-contain mix-blend-multiply transition-transform group-hover:scale-110 duration-500"
                 />
               </motion.div>
               <div className="flex flex-col">
