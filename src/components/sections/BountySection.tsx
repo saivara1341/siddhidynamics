@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-import { Target, Users, ArrowUpRight, ShieldCheck, Globe, Zap, Bell } from 'lucide-react';
+import { Target, Users, ArrowUpRight, ShieldCheck, Globe, Zap, Bell, LucideIcon } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
@@ -14,6 +14,8 @@ interface BountyProposal {
     status: string;
     created_at: string;
     progress: number;
+    image?: string;
+    icon?: LucideIcon;
 }
 
 export const BountySection = () => {
@@ -27,11 +29,12 @@ export const BountySection = () => {
             name: p.name,
             inquiry_type: p.id === 'archplan' ? 'Construction' :
                 p.id === 'nexus' ? 'Education' :
-                    p.id === 'nilayam' ? 'Real Estate' :
-                        p.id === 'wish0' ? 'Automation' : 'Governance',
+                    p.id === 'nilayam' ? 'Real Estate' : 'Governance',
             message: p.tagline,
             status: p.status,
             progress: p.progress,
+            image: p.image,
+            icon: p.icon,
             created_at: new Date().toISOString()
         }));
 
@@ -71,9 +74,17 @@ export const BountySection = () => {
                             transition={{ delay: index * 0.1 }}
                             className="glass-card p-6 border border-white/10 hover:border-primary/30 transition-all group"
                         >
-                            <div className="flex justify-between items-start mb-4">
-                                <div className="bg-primary/20 text-primary p-2 rounded-lg">
-                                    <Zap className="w-4 h-4" />
+                            <div className="flex justify-between items-start mb-6">
+                                <div className="w-12 h-12 flex items-center justify-center relative">
+                                    {bounty.image ? (
+                                        <img
+                                            src={bounty.image}
+                                            alt={bounty.name}
+                                            className="w-full h-full object-contain filter drop-shadow-[0_5px_10px_rgba(0,0,0,0.4)]"
+                                        />
+                                    ) : (
+                                        bounty.icon && <bounty.icon className="w-8 h-8 text-primary filter drop-shadow-[0_5px_10px_rgba(255,100,0,0.3)]" strokeWidth={1.5} />
+                                    )}
                                 </div>
                                 <div className="text-[10px] font-bold px-2 py-0.5 rounded-full border border-border bg-black/40 text-muted-foreground">
                                     {bounty.inquiry_type}
