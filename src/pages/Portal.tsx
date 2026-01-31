@@ -245,8 +245,28 @@ const Portal = () => {
                                                                 </div>
                                                             </div>
 
+                                                            {/* Submission Progress */}
+                                                            <div className="space-y-3">
+                                                                <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+                                                                    <span>Development Progress</span>
+                                                                    <span className="text-primary">
+                                                                        {sub.status === 'Resolved' ? '100%' :
+                                                                            sub.status === 'In Progress' ? '65%' :
+                                                                                sub.status === 'Analyzing' ? '15%' : '5%'}
+                                                                    </span>
+                                                                </div>
+                                                                <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                                                                    <motion.div
+                                                                        initial={{ width: 0 }}
+                                                                        animate={{ width: sub.status === 'Resolved' ? '100%' : sub.status === 'In Progress' ? '65%' : sub.status === 'Analyzing' ? '15%' : '5%' }}
+                                                                        transition={{ duration: 1.5, ease: "easeOut" }}
+                                                                        className="h-full bg-gradient-to-r from-primary to-accent shadow-[0_0_10px_hsl(25_85%_55%/0.3)]"
+                                                                    />
+                                                                </div>
+                                                            </div>
+
                                                             {/* Milestones */}
-                                                            <div className="space-y-6">
+                                                            <div className="space-y-6 pt-4">
                                                                 <h4 className="text-sm font-bold uppercase tracking-widest text-primary/70">Development Roadmap</h4>
                                                                 <div className="space-y-4">
                                                                     {(sub.milestones || [

@@ -32,7 +32,7 @@ const featureVariants = {
   })
 };
 
-const projects: Array<{
+export const projects: Array<{
   id: string;
   name: string;
   tagline: string;
@@ -224,28 +224,26 @@ const ProjectCard = ({
           <div className="flex items-start gap-5 mb-6">
             <motion.div
               animate={{
-                scale: isHovered ? 1.1 : 1,
-                rotate: isHovered ? 5 : 0
+                scale: isHovered ? 1.15 : 1,
+                rotate: isHovered ? 8 : 0,
+                y: isHovered ? -5 : 0
               }}
-              transition={{ type: 'spring', stiffness: 300 }}
-              className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500 overflow-hidden ${!project.image && (isPrimary
-                ? 'bg-primary/15 text-primary'
-                : 'bg-accent/15 text-accent')
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              className={`w-16 h-16 flex items-center justify-center shrink-0 transition-all duration-500 relative z-20 ${!project.image && (isPrimary
+                ? 'text-primary'
+                : 'text-accent')
                 }`}
-              style={{
-                boxShadow: isHovered
-                  ? `0 0 40px ${isPrimary ? 'hsl(25 85% 55% / 0.5)' : 'hsl(85 70% 45% / 0.5)'}`
-                  : 'none'
-              }}
             >
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-2xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
+
               {project.image ? (
                 <img
                   src={project.image}
                   alt={`${project.name} logo`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain filter drop-shadow-[0_10px_15px_rgba(0,0,0,0.5)] transform-gpu"
                 />
               ) : (
-                IconComponent && <IconComponent className="w-8 h-8" strokeWidth={1.5} />
+                IconComponent && <IconComponent className="w-10 h-10 filter drop-shadow-[0_5px_10px_rgba(0,0,0,0.4)]" strokeWidth={1.5} />
               )}
             </motion.div>
 

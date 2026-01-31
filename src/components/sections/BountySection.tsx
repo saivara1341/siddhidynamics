@@ -4,13 +4,15 @@ import { Target, Users, ArrowUpRight, ShieldCheck, Globe, Zap, Bell } from 'luci
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
+import { projects } from './ProjectsSection';
+
 interface BountyProposal {
     id: string;
     inquiry_type: string;
     message: string;
     status: string;
     created_at: string;
-    progress?: number;
+    progress: number;
 }
 
 export const BountySection = () => {
@@ -18,42 +20,21 @@ export const BountySection = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchBounties = async () => {
-            // For now, we fetch from contact_submissions where is_public might be true
-            // Since it doesn't exist yet, we'll use placeholder data until migrations are done
-            // or we can just show some hardcoded proof-of-concept bounties
-            const placeholderBounties: BountyProposal[] = [
-                {
-                    id: '1',
-                    inquiry_type: 'Energy',
-                    message: 'Decentralized Microgrid Optimization for Rural Areas in India.',
-                    status: 'Researching',
-                    progress: 15,
-                    created_at: new Date().toISOString(),
-                },
-                {
-                    id: '2',
-                    inquiry_type: 'Healthcare',
-                    message: 'AI-Native Diagnostic Interface for Vernacular Languages.',
-                    status: 'Prototyping',
-                    progress: 45,
-                    created_at: new Date().toISOString(),
-                },
-                {
-                    id: '3',
-                    inquiry_type: 'Logistics',
-                    message: 'Autonomous Last-Mile Delivery Hub for Tier 2 Cities.',
-                    status: 'Analyzing',
-                    progress: 10,
-                    created_at: new Date().toISOString(),
-                }
-            ];
+        // Map our actual projects to the bounty format
+        const projectBounties: BountyProposal[] = projects.map(p => ({
+            id: p.id,
+            inquiry_type: p.id === 'archplan' ? 'Construction' :
+                p.id === 'nexus' ? 'Education' :
+                    p.id === 'nilayam' ? 'Real Estate' :
+                        p.id === 'wish0' ? 'Automation' : 'Governance',
+            message: p.tagline,
+            status: p.status,
+            progress: p.progress,
+            created_at: new Date().toISOString()
+        }));
 
-            setBounties(placeholderBounties);
-            setLoading(false);
-        };
-
-        fetchBounties();
+        setBounties(projectBounties);
+        setLoading(false);
     }, []);
 
     return (
