@@ -41,15 +41,14 @@ export const FooterSection = () => {
             className="flex items-center gap-4"
           >
             <motion.div
-              className="relative w-14 h-14"
+              className="relative w-14 h-14 flex items-center justify-center rounded-full bg-white shadow-[0_0_20px_rgba(255,165,0,0.3)] overflow-hidden"
               whileHover={{ rotate: 5, scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <div className="absolute inset-0 bg-primary/20 rounded-xl blur-xl" />
               <img
                 src={siddhiLogo}
                 alt="Siddhi Dynamics"
-                className="relative w-full h-full object-contain mix-blend-screen drop-shadow-[0_0_12px_rgba(255,165,0,0.6)]"
+                className="relative w-full h-full object-contain mix-blend-multiply transition-transform group-hover:scale-110 duration-500"
               />
             </motion.div>
             <div>

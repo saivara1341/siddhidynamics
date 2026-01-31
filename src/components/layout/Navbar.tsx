@@ -46,11 +46,11 @@ export const Navbar = () => {
               whileTap={{ scale: 0.98 }}
             >
               <motion.div
-                className="relative w-12 h-12 flex items-center justify-center rounded-xl overflow-hidden"
+                className="relative w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-[0_0_20px_rgba(255,165,0,0.4)] overflow-hidden"
                 whileHover={{ rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <div className="absolute inset-0 bg-primary/20 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-transparent pointer-events-none" />
                 <img
                   src={siddhiLogo}
                   alt="Siddhi Dynamics Logo"
