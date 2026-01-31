@@ -13,8 +13,7 @@ import {
     Send,
     LogOut,
     ChevronRight,
-    ChevronDown,
-    Zap
+    ChevronDown
 } from "lucide-react";
 
 const Portal = () => {
@@ -112,46 +111,21 @@ const Portal = () => {
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/3 rounded-full blur-[120px] pointer-events-none" />
 
             <main className="flex-grow container mx-auto px-6 pt-32 pb-20 relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6 relative">
+                    <div className="absolute -top-12 right-0 md:-top-16 md:right-0">
+                        <button
+                            onClick={logout}
+                            title="Sign Out"
+                            className="p-3 rounded-full glass-card border border-border/50 hover:bg-destructive/10 hover:border-destructive/30 transition-all text-muted-foreground hover:text-destructive group"
+                        >
+                            <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                        </button>
+                    </div>
                     <div>
                         <h1 className="text-4xl font-bold gradient-text glow-text mb-2">Collab</h1>
                         <p className="text-muted-foreground">Welcome back, {user?.email}</p>
                     </div>
                 </div>
-
-                {/* Stats Dashboard */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-                    {[
-                        { label: 'Active Challenges', value: submissions.length, icon: MessageSquare, color: 'text-primary' },
-                        { label: 'Waitlists Joined', value: waitlistEntries.length, icon: Clock, color: 'text-accent' },
-                        { label: 'Overall Progress', value: '42%', icon: CheckCircle2, color: 'text-green-500' },
-                        { label: 'Bounty Rewards', value: '$0', icon: Zap, color: 'text-amber-500' }
-                    ].map((stat, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.1 }}
-                            className="glass-card p-4 border border-white/5 flex flex-col items-center justify-center text-center group hover:border-white/20 transition-all"
-                        >
-                            <stat.icon className={`w-5 h-5 mb-2 ${stat.color}`} />
-                            <div className="text-2xl font-bold text-foreground mb-0.5">{stat.value}</div>
-                            <div className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground/60">{stat.label}</div>
-                        </motion.div>
-                    ))}
-                </div>
-
-                {/* Floating Sign Out Icon Button */}
-                <button
-                    onClick={logout}
-                    className="fixed top-6 right-6 z-[60] p-3 rounded-full glass-card border border-border/50 hover:bg-destructive/10 hover:border-destructive/30 hover:text-destructive transition-all group"
-                    title="Sign Out"
-                >
-                    <LogOut className="w-5 h-5" />
-                    <span className="absolute right-full mr-3 px-2 py-1 bg-background border border-border rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                        Sign Out
-                    </span>
-                </button>
 
                 <div className="grid lg:grid-cols-12 gap-8">
                     {/* Sidebar Tabs */}
@@ -245,28 +219,8 @@ const Portal = () => {
                                                                 </div>
                                                             </div>
 
-                                                            {/* Submission Progress */}
-                                                            <div className="space-y-3">
-                                                                <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
-                                                                    <span>Development Progress</span>
-                                                                    <span className="text-primary">
-                                                                        {sub.status === 'Resolved' ? '100%' :
-                                                                            sub.status === 'In Progress' ? '65%' :
-                                                                                sub.status === 'Analyzing' ? '15%' : '5%'}
-                                                                    </span>
-                                                                </div>
-                                                                <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
-                                                                    <motion.div
-                                                                        initial={{ width: 0 }}
-                                                                        animate={{ width: sub.status === 'Resolved' ? '100%' : sub.status === 'In Progress' ? '65%' : sub.status === 'Analyzing' ? '15%' : '5%' }}
-                                                                        transition={{ duration: 1.5, ease: "easeOut" }}
-                                                                        className="h-full bg-gradient-to-r from-primary to-accent shadow-[0_0_10px_hsl(25_85%_55%/0.3)]"
-                                                                    />
-                                                                </div>
-                                                            </div>
-
                                                             {/* Milestones */}
-                                                            <div className="space-y-6 pt-4">
+                                                            <div className="space-y-6">
                                                                 <h4 className="text-sm font-bold uppercase tracking-widest text-primary/70">Development Roadmap</h4>
                                                                 <div className="space-y-4">
                                                                     {(sub.milestones || [

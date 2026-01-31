@@ -32,7 +32,7 @@ const featureVariants = {
   })
 };
 
-export const projects: Array<{
+const projects: Array<{
   id: string;
   name: string;
   tagline: string;
@@ -43,57 +43,57 @@ export const projects: Array<{
   gradient: string;
   accentColor: string;
   url?: string;
-  status: 'Researching' | 'Prototyping' | 'Building' | 'Scaling';
-  progress: number;
 }> = [
     {
       id: 'archplan',
-      name: '🏗️ ArchPlan',
-      tagline: 'AI-Native Plan Generation, Cost Estimation & Cinematic 3D Renders',
-      description: 'A comprehensive AI platform for Vastu-compliant architectural planning, instant engineering cost estimation, and cinematic 16K photorealistic rendering. Digitizing the entire building journey for homeowners and construction professionals.',
+      name: 'ArchPlan AI',
+      tagline: 'AI-Powered Construction Intelligence Platform',
+      description: 'A comprehensive, AI-driven platform designed to digitize and streamline the entire construction lifecycle in India. Connecting homeowners, civil engineers, architects, suppliers, and service providers within a single intelligent workflow. Generate Vastu-compliant, engineering-grade 2D/3D plans, visualize photorealistic renders and cinematic walkthroughs, and receive instant, location-aware cost estimations. Advanced AI-powered drafting, structural analysis, BOQ generation, site and project management tools, and a fully featured marketplace for materials, machinery, and verified services.',
       image: archplanLogo,
       features: ['AI 2D/3D Plans', 'Vastu Compliance', 'BOQ Generation', 'Cost Estimation', 'Material Marketplace', 'Project Management'],
       gradient: 'from-primary to-orange-400',
       accentColor: 'primary',
       url: 'https://archplan.lovable.app',
-      status: 'Scaling',
-      progress: 92,
     },
     {
       id: 'nexus',
       name: 'Nexus Careers',
-      tagline: 'AI-Driven University Placement and Employability Platform',
-      description: 'An AI-native campus operating system and recruitment ERP designed to bridge the gap between academia and industry. Providing students with AI-powered mock interviews, skill-gap analysis, and personalized career roadmaps.',
+      tagline: 'AI-Native Campus Operating System & Recruitment ERP',
+      description: 'A full-scale, AI-powered Campus Operating System unifying students, academic institutions, recruiters, and administrators into a single multi-tenant platform. Students interact through a futuristic, gamified portal featuring AI resume analysis, skill-gap detection, AI mock interviews with video and voice feedback, job tracking, cognitive games, and startup idea evaluation. Institutions operate through a powerful administrative command center managing academics, finance, registrars, clubs, placements, and analytics. Powered by Google Gemini and Supabase.',
       icon: GraduationCap,
       features: ['AI Mock Interviews', 'Skill-Gap Detection', 'Institutional ERP', 'Recruiter Portal', 'Gamified Learning', 'Career Analytics'],
       gradient: 'from-accent to-lime-400',
       accentColor: 'accent',
-      status: 'Prototyping',
-      progress: 65,
     },
     {
       id: 'nilayam',
-      name: '🏡 Nilaya',
-      tagline: 'Property and Tenant Management System',
-      description: 'A modern SaaS platform designed to simplify and automate the entire rental and property management lifecycle.',
+      name: 'Nilayam',
+      tagline: 'AI-Driven Property & Smart Living Platform',
+      description: 'A modern SaaS platform designed to simplify and automate the entire rental and property management lifecycle. Property owners access a centralized command center to manage properties, tenants, finances, maintenance, and community engagement, enhanced with AI-powered lease generation, financial insights, and marketing automation. Tenants benefit from a transparent digital portal for rent payments, maintenance requests, announcements, and document verification. Deep integration with Google Gemini API enables AI-generated rental agreements, maintenance image analysis, and promotional content.',
       icon: Home,
       features: ['AI Lease Generation', 'Financial Analytics', 'Tenant Portal', 'Maintenance AI', 'Marketing Automation', 'Community Hub'],
       gradient: 'from-accent to-emerald-400',
       accentColor: 'accent',
-      status: 'Building',
-      progress: 42,
+    },
+    {
+      id: 'wish0',
+      name: 'Wish-0',
+      tagline: 'Automated Occasion & Celebration Intelligence',
+      description: 'An AI-powered automation system designed to deliver personalized wishes for birthdays and all major life occasions without manual intervention. The platform intelligently generates context-aware, human-centric messages using natural language understanding and schedules them for timely delivery across preferred communication channels. By learning user preferences and relationships, Wish-0 ensures every message feels personal rather than automated. It represents our R&D focus on zero-friction, emotionally intelligent AI experiences.',
+      icon: Heart,
+      features: ['Auto Scheduling', 'Personalized Messages', 'Multi-Channel Delivery', 'Relationship Learning', 'Emotional Intelligence', 'Zero-Friction UX'],
+      gradient: 'from-primary to-amber-500',
+      accentColor: 'primary',
     },
     {
       id: 'letusknow',
-      name: '🏙️ LetUsKnow',
-      tagline: 'Hyperlocal Civic Intelligence & Public Information Platform',
-      description: 'A revolutionary citizen-centric digital governance platform designed to simplify how people access government services, understand procedures, and resolve public and personal issues.',
+      name: 'Letusknow',
+      tagline: 'Citizen-Centric Digital Governance Platform',
+      description: 'A revolutionary citizen-centric digital governance platform designed to simplify how people access government services, understand procedures, and resolve public and personal issues without confusion or repeated office visits. Upon login, the platform uses PIN code and live GPS to identify the user\'s exact location—ward, mandal, district, village, municipality, and region. It provides comprehensive information about local political representatives including MLAs, MPs, corporators, and ward members, along with all government departments in the area. Users can type their requirements—whether obtaining certificates, Aadhaar updates, PAN changes, or any government service—and receive step-by-step guidance on which office to visit or online portal to use. Additionally, Letusknow showcases government development projects, sanctioned funds for regional development, and promotes local tourist spots developed to boost regional revenue.',
       icon: Landmark,
       features: ['GPS-Based Location', 'Political Representatives Info', 'Government Services Guide', 'Department Directory', 'Development Projects', 'Tourism Promotion'],
       gradient: 'from-cyan-500 to-blue-600',
       accentColor: 'accent',
-      status: 'Researching',
-      progress: 15,
     },
   ];
 
@@ -212,26 +212,28 @@ const ProjectCard = ({
           <div className="flex items-start gap-5 mb-6">
             <motion.div
               animate={{
-                scale: isHovered ? 1.15 : 1,
-                rotate: isHovered ? 8 : 0,
-                y: isHovered ? -5 : 0
+                scale: isHovered ? 1.1 : 1,
+                rotate: isHovered ? 5 : 0
               }}
-              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-              className={`w-16 h-16 flex items-center justify-center shrink-0 transition-all duration-500 relative z-20 ${!project.image && (isPrimary
-                ? 'text-primary'
-                : 'text-accent')
+              transition={{ type: 'spring', stiffness: 300 }}
+              className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500 overflow-hidden ${!project.image && (isPrimary
+                ? 'bg-primary/15 text-primary'
+                : 'bg-accent/15 text-accent')
                 }`}
+              style={{
+                boxShadow: isHovered
+                  ? `0 0 40px ${isPrimary ? 'hsl(25 85% 55% / 0.5)' : 'hsl(85 70% 45% / 0.5)'}`
+                  : 'none'
+              }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-2xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
-
               {project.image ? (
                 <img
                   src={project.image}
                   alt={`${project.name} logo`}
-                  className="w-full h-full object-contain filter drop-shadow-[0_10px_15px_rgba(0,0,0,0.5)] transform-gpu"
+                  className="w-full h-full object-cover"
                 />
               ) : (
-                IconComponent && <IconComponent className="w-10 h-10 filter drop-shadow-[0_5px_10px_rgba(0,0,0,0.4)]" strokeWidth={1.5} />
+                IconComponent && <IconComponent className="w-8 h-8" strokeWidth={1.5} />
               )}
             </motion.div>
 
@@ -239,31 +241,9 @@ const ProjectCard = ({
               <h3 className="text-2xl font-bold mb-1 text-foreground font-display">
                 {project.name}
               </h3>
-              <div className="flex justify-between items-center mt-2">
-                <p className={`text-sm font-semibold ${isPrimary ? 'text-primary' : 'text-accent'}`}>
-                  {project.tagline}
-                </p>
-                <div className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${isPrimary ? 'border-primary/30 text-primary bg-primary/5' : 'border-accent/30 text-accent bg-accent/5'}`}>
-                  {project.status}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Progress Bar */}
-          <div className="mb-6 space-y-2">
-            <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
-              <span>Development Progress</span>
-              <span className={isPrimary ? 'text-primary' : 'text-accent'}>{project.progress}%</span>
-            </div>
-            <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
-              <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: `${project.progress}%` }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
-                className={`h-full bg-gradient-to-r ${project.gradient}`}
-              />
+              <p className={`text-sm font-semibold ${isPrimary ? 'text-primary' : 'text-accent'}`}>
+                {project.tagline}
+              </p>
             </div>
           </div>
 
@@ -284,8 +264,19 @@ const ProjectCard = ({
           </motion.p>
         </div>
 
+        {/* Read More Indicator */}
+        <motion.button
+          className={`text-xs font-medium mb-4 ${isPrimary ? 'text-primary' : 'text-accent'} hover:underline`}
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsExpanded(!isExpanded);
+          }}
+        >
+          {isExpanded ? 'Show Less ↑' : 'Read More ↓'}
+        </motion.button>
+
         {/* Features */}
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap gap-2">
           {project.features.map((feature, featureIndex) => (
             <motion.span
               key={feature}
@@ -302,48 +293,34 @@ const ProjectCard = ({
           ))}
         </div>
 
-        {/* Action Buttons Container */}
-        <div className="relative z-[30] space-y-4">
-          {/* Read More Indicator */}
+        {/* Action Button */}
+        <div className="mt-6 pt-4 border-t border-border/30 relative z-20" style={{ transform: 'translateZ(10px)' }}>
           <motion.button
-            className={`text-xs font-medium ${isPrimary ? 'text-primary' : 'text-accent'} hover:underline block`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsExpanded(!isExpanded);
-            }}
+            onClick={handleActionClick}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`w-full py-3 px-6 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 relative ${project.url
+              ? 'bg-gradient-to-r from-primary to-orange-400 text-primary-foreground shadow-[0_4px_15px_rgba(251,146,60,0.3)] hover:shadow-[0_0_25px_hsl(25_85%_55%/0.5)]'
+              : isPrimary
+                ? 'bg-primary/10 text-primary border border-primary/30 hover:bg-primary/20 hover:border-primary/50'
+                : 'bg-accent/10 text-accent border border-accent/30 hover:bg-accent/20 hover:border-accent/50'
+              }`}
           >
-            {isExpanded ? 'Show Less ↑' : 'Read More ↓'}
+            {project.url ? (
+              <>
+                <ExternalLink className="w-4 h-4" />
+                Access Platform
+              </>
+            ) : (
+              <>
+                <Bell className="w-4 h-4" />
+                Join Waitlist
+              </>
+            )}
           </motion.button>
-
-          {/* Action Button */}
-          <div className="pt-4 border-t border-border/30">
-            <motion.button
-              onClick={handleActionClick}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className={`w-full py-3 px-6 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 pointer-events-auto ${project.url
-                ? 'bg-gradient-to-r from-primary to-orange-400 text-primary-foreground hover:shadow-[0_0_20px_hsl(25_85%_55%/0.4)]'
-                : isPrimary
-                  ? 'bg-primary/10 text-primary border border-primary/30 hover:bg-primary/20 hover:border-primary/50'
-                  : 'bg-accent/10 text-accent border border-accent/30 hover:bg-accent/20 hover:border-accent/50'
-                }`}
-            >
-              {project.url ? (
-                <>
-                  <ExternalLink className="w-4 h-4" />
-                  Access Platform
-                </>
-              ) : (
-                <>
-                  <Bell className="w-4 h-4" />
-                  Join Waitlist
-                </>
-              )}
-            </motion.button>
-          </div>
         </div>
       </motion.div>
-    </motion.div >
+    </motion.div>
   );
 };
 

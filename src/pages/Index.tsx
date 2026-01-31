@@ -4,7 +4,6 @@ import { Navbar } from '@/components/layout/Navbar';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { VisionSection } from '@/components/sections/VisionSection';
 import { ProjectsSection } from '@/components/sections/ProjectsSection';
-import { BountySection } from '@/components/sections/BountySection';
 import { IncubationSection } from '@/components/sections/IncubationSection';
 import { SubmitSection } from '@/components/sections/SubmitSection';
 import { FooterSection } from '@/components/sections/FooterSection';
@@ -43,7 +42,6 @@ const Index = () => {
         <HeroSection />
         <VisionSection />
         <ProjectsSection />
-        <BountySection />
         <IncubationSection />
         <SubmitSection />
       </main>
