@@ -43,6 +43,7 @@ const projects: Array<{
   gradient: string;
   accentColor: string;
   url?: string;
+  progress: number;
 }> = [
     {
       id: 'archplan',
@@ -54,6 +55,7 @@ const projects: Array<{
       gradient: 'from-primary to-orange-400',
       accentColor: 'primary',
       url: 'https://archplan.lovable.app',
+      progress: 85,
     },
     {
       id: 'nexus',
@@ -64,6 +66,7 @@ const projects: Array<{
       features: ['AI Mock Interviews', 'Skill-Gap Detection', 'Institutional ERP', 'Recruiter Portal', 'Gamified Learning', 'Career Analytics'],
       gradient: 'from-accent to-lime-400',
       accentColor: 'accent',
+      progress: 65,
     },
     {
       id: 'nilayam',
@@ -74,6 +77,7 @@ const projects: Array<{
       features: ['AI Lease Generation', 'Financial Analytics', 'Tenant Portal', 'Maintenance AI', 'Marketing Automation', 'Community Hub'],
       gradient: 'from-accent to-emerald-400',
       accentColor: 'accent',
+      progress: 45,
     },
     {
       id: 'wish0',
@@ -84,6 +88,7 @@ const projects: Array<{
       features: ['Auto Scheduling', 'Personalized Messages', 'Multi-Channel Delivery', 'Relationship Learning', 'Emotional Intelligence', 'Zero-Friction UX'],
       gradient: 'from-primary to-amber-500',
       accentColor: 'primary',
+      progress: 30,
     },
     {
       id: 'letusknow',
@@ -94,6 +99,7 @@ const projects: Array<{
       features: ['GPS-Based Location', 'Political Representatives Info', 'Government Services Guide', 'Department Directory', 'Development Projects', 'Tourism Promotion'],
       gradient: 'from-cyan-500 to-blue-600',
       accentColor: 'accent',
+      progress: 25,
     },
   ];
 
@@ -274,6 +280,25 @@ const ProjectCard = ({
         >
           {isExpanded ? 'Show Less ↑' : 'Read More ↓'}
         </motion.button>
+
+        {/* Development Progress */}
+        <div className="mb-8 space-y-2">
+          <div className="flex justify-between items-end">
+            <span className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">Development Progress</span>
+            <span className={`text-sm font-bold ${isPrimary ? 'text-primary' : 'text-accent'}`}>{project.progress}%</span>
+          </div>
+          <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: `${project.progress}%` }}
+              transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
+              className={`h-full rounded-full ${isPrimary ? 'bg-primary' : 'bg-accent'}`}
+              style={{
+                boxShadow: `0 0 10px ${isPrimary ? 'hsl(25 85% 55% / 0.5)' : 'hsl(85 70% 45% / 0.5)'}`
+              }}
+            />
+          </div>
+        </div>
 
         {/* Features */}
         <div className="flex flex-wrap gap-2">
