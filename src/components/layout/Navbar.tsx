@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import siddhiLogo from '@/assets/siddhi-dynamics-logo.jpeg';
+import siddhiLogo from '@/assets/siddhi-logo.jpg';
 
 const navLinks = [
   { name: 'Vision', href: '#vision' },
@@ -46,15 +46,15 @@ export const Navbar = () => {
               whileTap={{ scale: 0.98 }}
             >
               <motion.div
-                className="relative w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-[0_0_20px_rgba(255,165,0,0.4)] overflow-hidden"
-                whileHover={{ rotate: 5 }}
+                className="relative w-14 h-14 flex items-center justify-center"
+                whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-60" />
                 <img
                   src={siddhiLogo}
                   alt="Siddhi Dynamics Logo"
-                  className="relative w-full h-full object-contain mix-blend-multiply transition-transform group-hover:scale-110 duration-500"
+                  className="relative w-full h-full object-contain mix-blend-screen drop-shadow-[0_0_15px_rgba(251,146,60,0.5)]"
                 />
               </motion.div>
               <div className="flex flex-col">
