@@ -8,6 +8,7 @@ import { projects } from './ProjectsSection';
 
 interface BountyProposal {
     id: string;
+    name: string;
     inquiry_type: string;
     message: string;
     status: string;
@@ -23,6 +24,7 @@ export const BountySection = () => {
         // Map our actual projects to the bounty format
         const projectBounties: BountyProposal[] = projects.map(p => ({
             id: p.id,
+            name: p.name,
             inquiry_type: p.id === 'archplan' ? 'Construction' :
                 p.id === 'nexus' ? 'Education' :
                     p.id === 'nilayam' ? 'Real Estate' :
@@ -78,9 +80,12 @@ export const BountySection = () => {
                                 </div>
                             </div>
 
-                            <h3 className="text-lg font-bold mb-3 leading-tight group-hover:text-primary transition-colors">
-                                {bounty.message}
+                            <h3 className="text-xl font-bold mb-1 leading-tight group-hover:text-primary transition-colors">
+                                {bounty.name}
                             </h3>
+                            <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                                {bounty.message}
+                            </p>
 
                             <div className="space-y-4 mb-6">
                                 <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">
