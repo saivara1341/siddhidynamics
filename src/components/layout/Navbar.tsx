@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import siddhiLogo from '@/assets/siddhi-logo.jpg';
 
 const navLinks = [
@@ -20,23 +21,10 @@ export const Navbar = () => {
   const headerBlur = useTransform(scrollY, [0, 100], ['0px', '40px']);
 
   useEffect(() => {
-    // Check auth status
-    const checkAuth = async () => {
-      const { data: { session } } = await (await import('@/integrations/supabase/client')).supabase.auth.getSession();
+    // Basic auth check
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setIsLoggedIn(!!session);
-    };
-
-    checkAuth();
-
-    const { data: { subscription } } = import('@/integrations/supabase/client').then(({ supabase }) =>
-      supabase.auth.onAuthStateChange((_event, session) => {
-        setIsLoggedIn(!!session);
-      })
-    ) as any;
-
-    return () => {
-      if (subscription) subscription.unsubscribe();
-    };
+    });
   }, []);
 
   return (
