@@ -16,24 +16,27 @@ export const Navbar = () => {
   const { scrollY } = useScroll();
 
   const headerOpacity = useTransform(scrollY, [0, 100], [0, 1]);
+  const headerPadding = useTransform(scrollY, [0, 100], ['24px', '14px']);
+  const headerBlur = useTransform(scrollY, [0, 100], ['0px', '40px']);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    // Check auth status
+    const checkAuth = async () => {
+      const { data: { session } } = await (await import('@/integrations/supabase/client')).supabase.auth.getSession();
+      setIsLoggedIn(!!session);
     };
 
-    // Check auth status
-    import('@/integrations/supabase/client').then(({ supabase }) => {
-      supabase.auth.getSession().then(({ data: { session } }) => {
-        setIsLoggedIn(!!session);
-      });
+    checkAuth();
+
+    const { data: { subscription } } = import('@/integrations/supabase/client').then(({ supabase }) =>
       supabase.auth.onAuthStateChange((_event, session) => {
         setIsLoggedIn(!!session);
-      });
-    });
+      })
+    ) as any;
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      if (subscription) subscription.unsubscribe();
+    };
   }, []);
 
   return (
@@ -44,13 +47,16 @@ export const Navbar = () => {
         transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
         className="fixed top-0 left-0 right-0 z-50"
       >
-        {/* Background blur layer */}
+        {/* Frosted Glass Layer with extreme blur */}
         <motion.div
           style={{ opacity: headerOpacity }}
-          className="absolute inset-0 backdrop-blur-2xl bg-background/60 border-b border-border/50"
+          className="absolute inset-0 backdrop-blur-[35px] bg-background/70 border-b border-border/50"
         />
 
-        <div className={`relative container mx-auto px-6 transition-all duration-500 ${scrolled ? 'py-3' : 'py-5'}`}>
+        <motion.div
+          style={{ paddingTop: headerPadding, paddingBottom: headerPadding }}
+          className="relative container mx-auto px-6"
+        >
           <div className="flex items-center justify-between">
             <motion.a
               href="#"
@@ -144,7 +150,7 @@ export const Navbar = () => {
               </div>
             </motion.button>
           </div>
-        </div>
+        </motion.div>
       </motion.header>
 
       {/* Mobile menu */}
