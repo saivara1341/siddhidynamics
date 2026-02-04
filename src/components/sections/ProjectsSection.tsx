@@ -1,3 +1,4 @@
+// Final fix for button clickability and badge visibility
 import { motion, useInView, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
