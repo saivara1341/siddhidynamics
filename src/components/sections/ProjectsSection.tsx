@@ -124,7 +124,7 @@ const ProjectCard = ({
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="glass-card p-8 h-full relative"
+        className="glass-card !overflow-visible p-8 h-full relative"
       >
         {/* Electric border on hover */}
         <motion.div
