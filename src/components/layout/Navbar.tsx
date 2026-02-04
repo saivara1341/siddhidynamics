@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { supabase } from '@/integrations/supabase/client';
 import siddhiLogo from '@/assets/siddhi-logo.jpg';
-import { LanguageSwitcher } from './LanguageSwitcher';
 
 export const Navbar = () => {
   const { t } = useTranslation();
@@ -108,9 +107,7 @@ export const Navbar = () => {
                 </motion.a>
               ))}
 
-              <div className="mx-2">
-                <LanguageSwitcher />
-              </div>
+
 
               <motion.a
                 href={isLoggedIn ? "#/portal" : "#/submit"}
@@ -131,7 +128,7 @@ export const Navbar = () => {
 
             {/* Mobile menu button */}
             <div className="flex items-center gap-4 md:hidden">
-              <LanguageSwitcher />
+
               <motion.button
                 className="relative w-10 h-10 flex items-center justify-center"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
