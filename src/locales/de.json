@@ -1,0 +1,109 @@
+{
+    "nav": {
+        "vision": "Vision",
+        "projects": "Projekte",
+        "submit": "Problem Einreichen",
+        "collab": "Kollaboration",
+        "portal": "Zum Portal",
+        "getStarted": "Loslegen"
+    },
+    "hero": {
+        "badge": "KI-Lösungen der Nächsten Generation",
+        "transforming": "Transformation von",
+        "realWorldProblems": "Echten Problemen",
+        "into": "in",
+        "aiSolutions": "KI-Lösungen",
+        "description": "Wir sind ein Deep-Tech-Innovationsunternehmen, das komplexe Herausforderungen in skalierbare, <0>produktionsreife</0> Technologielösungen verwandelt, angetrieben von <1>KI, Generativer KI und Agentischer Intelligenz</1>.",
+        "ctaSubmit": "Herausforderung Einreichen",
+        "ctaExplore": "Projekte Erkunden",
+        "scroll": "Scrollen"
+    },
+    "vision": {
+        "title": "Unsere Vision",
+        "subtitle": "Menschlichen Fortschritt durch technologische Exzellenz vorantreiben",
+        "beyondPrototypes": "Über Prototypen hinaus,",
+        "intoProduction": "In die Produktion",
+        "visionDescription": "Wir identifizieren reale Herausforderungen und transformieren sie in skalierbare, produktionsreife Technologielösungen – nicht nur Demos, sondern <0>einsatzbereite Systeme</0>, die nachhaltige Wirkung erzielen.",
+        "mission": {
+            "subtitle": "Unsere Mission",
+            "title": "Entwicklung der Zukunft <0>Intelligenter Systeme</0>",
+            "description": "Bei Siddhi Dynamics LLP glauben wir, dass jedes komplexe Problem eine technologische Lösung hat. Unsere Mission ist es, die Lücke zwischen modernster KI-Forschung und realen Anwendungen zu schließen.",
+            "stats": {
+                "powered": "Angetrieben",
+                "productionReady": "Produktionsreif",
+                "scalable": "Skalierbar",
+                "autonomous": "Autonom"
+            }
+        },
+        "features": {
+            "ai": {
+                "title": "Künstliche Intelligenz",
+                "description": "Deep-Learning-Modelle und intelligente Systeme, die sich anpassen und entwickeln, um komplexe Probleme zu lösen."
+            },
+            "genAi": {
+                "title": "Generative KI",
+                "description": "Erstellung neuer Inhalte, Designs und Lösungen mit modernsten generativen Modellen."
+            },
+            "agenticAi": {
+                "title": "Agentische KI",
+                "description": "Autonome KI-Agenten, die komplexe mehrstufige Workflows planen und ausführen."
+            },
+            "automation": {
+                "title": "Intelligente Automatisierung",
+                "description": "End-to-End-Automatisierung, die Abläufe mit Präzision und Zuverlässigkeit transformiert."
+            }
+        }
+    },
+    "projects": {
+        "title": "Unsere Produkte",
+        "subtitle": "Die <0>Zukunft</0> Bauen",
+        "description": "Entdecken Sie unser Portfolio an produktionsreifen KI-Plattformen, die Bauwesen, Bildung, Immobilienmanagement und persönliche Automatisierung transformieren.",
+        "readMore": "Mehr Lesen ↓",
+        "showLess": "Weniger Anzeigen ↑",
+        "progress": "Entwicklungsfortschritt",
+        "access": "Plattform Aufrufen",
+        "waitlist": "Warteliste Beitreten",
+        "items": {
+            "archplan": {
+                "name": "ArchPlan AI",
+                "tagline": "KI-gestützte Bau-Intelligenz-Plattform",
+                "description": "Eine umfassende, KI-gesteuerte Plattform zur Digitalisierung und Optimierung des gesamten Bau-Lebenszyklus in Indien.",
+                "features": [
+                    "KI 2D/3D Pläne",
+                    "Vastu-Konformität",
+                    "BOQ-Erstellung",
+                    "Kostenschätzung",
+                    "Materialmarktplatz",
+                    "Projektmanagement"
+                ]
+            }
+        }
+    },
+    "waitlistModal": {
+        "title": "Warteliste Beitreten",
+        "subtitle": "Erleben Sie <0>{{name}}</0> als Erster",
+        "successTitle": "Sie sind auf der Liste!",
+        "successDescription": "Wir benachrichtigen Sie, wenn {{name}} startet.",
+        "nameLabel": "Ihr Name",
+        "namePlaceholder": "Namen eingeben",
+        "emailLabel": "E-Mail-Adresse",
+        "emailPlaceholder": "E-Mail eingeben",
+        "commentLabel": "Kommentare/Ideen",
+        "joinButton": "Warteliste Beitreten"
+    },
+    "submit": {
+        "title": "Herausforderung Einreichen",
+        "subtitle": "Lassen Sie es uns <0>Zusammen</0> Lösen",
+        "description": "Haben Sie ein komplexes Problem, das eine technologische Lösung erfordert? Wir suchen nach realen Herausforderungen für unsere KI-Systeme.",
+        "toasts": {
+            "listening": "Zuhören... Jetzt sprechen.",
+            "voiceFail": "Spracherkennung fehlgeschlagen.",
+            "problemSuccess": "Problem erfolgreich eingereicht!",
+            "genericError": "Übermittlung fehlgeschlagen."
+        }
+    },
+    "footer": {
+        "description": "Entwicklung der Zukunft intelligenter Systeme durch Deep-Tech-Innovation und reale Wirkung.",
+        "copyright": "© {{year}} Siddhi Dynamics LLP. Alle Rechte vorbehalten."
+    }
+}

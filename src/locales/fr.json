@@ -2,35 +2,35 @@
     "nav": {
         "vision": "Vision",
         "projects": "Projets",
-        "submit": "Soumettre un Problème",
+        "submit": "Soumettre un défi",
         "collab": "Collab",
-        "portal": "Aller au Portail",
+        "portal": "Aller au Portail Collab",
         "getStarted": "Commencer"
     },
     "hero": {
-        "badge": "Solutions IA de Nouvelle Génération",
+        "badge": "Solutions d'IA de nouvelle génération",
         "transforming": "Transformer les",
-        "realWorldProblems": "Problèmes Réels",
+        "realWorldProblems": "problèmes du monde réel",
         "into": "en",
-        "aiSolutions": "Solutions IA",
-        "description": "Nous sommes une entreprise d'innovation deep-tech convertissant des défis complexes en solutions technologiques <0>prêtes pour la production</0> et évolutives, propulsées par <1>l'IA, l'IA Générative et l'Intelligence Agentique</1>.",
-        "ctaSubmit": "Soumettez Votre Défi",
-        "ctaExplore": "Explorer les Projets",
+        "aiSolutions": "solutions d'IA",
+        "description": "Nous sommes une entreprise d'innovation deep-tech convertissant des défis complexes en solutions technologiques <0>prêtes pour la production</0> et évolutives, propulsées par <1>l'IA, l'IA générative et l'intelligence agentique</1>.",
+        "ctaSubmit": "Soumettez votre défi",
+        "ctaExplore": "Explorer les projets",
         "scroll": "Défiler"
     },
     "vision": {
         "title": "Notre Vision",
         "subtitle": "Stimuler le progrès humain grâce à l'excellence technologique",
-        "beyondPrototypes": "Au-delà des Prototypes,",
-        "intoProduction": "Vers la Production",
-        "visionDescription": "Nous identifions les défis du monde réel et les transformons en solutions technologiques évolutives et prêtes pour la production—pas seulement des démos, mais des <0>systèmes déployables</0> qui créent un impact durable.",
+        "beyondPrototypes": "Au-delà des prototypes,",
+        "intoProduction": "vers la production",
+        "visionDescription": "Nous identifions les défis du monde réel et les transformons en solutions technologiques évolutives et prêtes pour la production — pas seulement des démos, mais des <0>systèmes déployables</0> qui créent un impact durable.",
         "mission": {
             "subtitle": "Notre Mission",
-            "title": "Ingénierie du Futur des <0>Systèmes Intelligents</0>",
-            "description": "Chez Siddhi Dynamics LLP, nous croyons que chaque problème complexe a une solution technologique qui attend d'être construite. Notre mission est de combler le fossé entre la recherche de pointe en IA et les applications réelles.",
+            "title": "Ingénierie du futur des <0>systèmes intelligents</0>",
+            "description": "Chez Siddhi Dynamics LLP, nous pensons que chaque problème complexe a une solution technologique qui attend d'être construite. Notre mission est de combler le fossé entre la recherche de pointe en IA et les applications concrètes.",
             "stats": {
                 "powered": "Propulsé",
-                "productionReady": "Prêt Production",
+                "productionReady": "Prêt pour la production",
                 "scalable": "Évolutif",
                 "autonomous": "Autonome"
             }
@@ -49,8 +49,8 @@
                 "description": "Agents d'IA autonomes qui raisonnent, planifient et exécutent des flux de travail complexes à plusieurs étapes."
             },
             "automation": {
-                "title": "Automatisation Intelligente",
-                "description": "Automatisation de bout en bout qui transforme les opérations avec précision et fiabilité."
+                "title": "Automatisation intelligente",
+                "description": "Une automatisation de bout en bout qui transforme les opérations avec précision et fiabilité."
             }
         }
     },
@@ -58,42 +58,52 @@
         "title": "Nos Produits",
         "subtitle": "Bâtir le <0>Futur</0>",
         "description": "Explorez notre portefeuille de plateformes d'IA prêtes pour la production transformant la construction, l'éducation, la gestion immobilière et l'automatisation personnelle.",
-        "readMore": "Lire Plus ↓",
-        "showLess": "Réduire ↑",
-        "progress": "Progrès du Développement",
-        "access": "Accéder à la Plateforme",
-        "waitlist": "Rejoindre la Liste",
+        "readMore": "En savoir plus ↓",
+        "showLess": "Moins ↑",
+        "progress": "Progrès du développement",
+        "access": "Accéder à la plateforme",
+        "waitlist": "Rejoindre la liste d'attente",
         "items": {
             "archplan": {
                 "name": "ArchPlan AI",
-                "tagline": "Intelligence de Construction Propulsée par l'IA",
-                "description": "Une plateforme complète conçue pour numériser et rationaliser l'ensemble du cycle de vie de la construction en Inde.",
+                "tagline": "Plateforme d'intelligence de construction propulsée par l'IA",
+                "description": "Une plateforme complète pilotée par l'IA conçue pour numériser et rationaliser l'ensemble du cycle de vie de la construction en Inde.",
                 "features": [
                     "Plans IA 2D/3D",
                     "Conformité Vastu",
                     "Génération BOQ",
-                    "Estimation des Coûts",
-                    "Marché des Matériaux",
-                    "Gestion de Projet"
+                    "Estimation des coûts",
+                    "Marché des matériaux",
+                    "Gestion de projet"
                 ]
             }
         }
     },
+    "waitlistModal": {
+        "title": "Rejoindre la liste d'attente",
+        "subtitle": "Soyez le premier à découvrir <0>{{name}}</0>",
+        "successTitle": "Vous êtes sur la liste !",
+        "successDescription": "Nous vous informerons du lancement de {{name}}.",
+        "nameLabel": "Votre nom",
+        "namePlaceholder": "Entrez votre nom",
+        "emailLabel": "Adresse e-mail",
+        "emailPlaceholder": "Entrez votre e-mail",
+        "commentLabel": "Commentaires/Idées",
+        "joinButton": "Rejoindre la liste"
+    },
     "submit": {
-        "title": "Soumettez Votre Défi",
-        "subtitle": "Résolvons-le <0>Ensemble</0>",
+        "title": "Soumettez votre défi",
+        "subtitle": "Résolvons-le <0>ensemble</0>",
         "description": "Avez-vous un problème complexe qui nécessite une solution technologique ? Nous recherchons des défis réels à relever avec nos systèmes d'IA.",
-        "cta": "Soumettre le Problème",
         "toasts": {
-            "listening": "Écoute en cours...",
-            "voiceFail": "Échec de la reconnaissance vocale.",
-            "voiceNotSupported": "Reconnaissance vocale non supportée.",
-            "problemSuccess": "Problème soumis avec succès !",
-            "genericError": "Échec de la soumission."
+            "listening": "Écoute en cours... Parlez maintenant.",
+            "voiceFail": "Échec de la reconnaissance vocale. Vérifiez les permissions.",
+            "problemSuccess": "Problème soumis avec succès ! Nos agents d'IA analyseront votre défi.",
+            "genericError": "Échec de la soumission. Veuillez réessayer."
         }
     },
     "footer": {
-        "description": "Ingénierie du futur des systèmes intelligents grâce à l'innovation deep-tech et un impact réel.",
+        "description": "Ingénierie du futur des systèmes intelligents grâce à l'innovation deep-tech et un impact concret.",
         "copyright": "© {{year}} Siddhi Dynamics LLP. Tous droits réservés."
     }
 }

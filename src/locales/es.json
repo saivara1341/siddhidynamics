@@ -1,0 +1,112 @@
+{
+    "nav": {
+        "vision": "Visión",
+        "projects": "Proyectos",
+        "submit": "Enviar Problema",
+        "collab": "Colaborar",
+        "portal": "Ir a Colaborar",
+        "getStarted": "Empezar"
+    },
+    "hero": {
+        "badge": "Soluciones de IA de Nueva Generación",
+        "transforming": "Transformando",
+        "realWorldProblems": "Problemas del Mundo Real",
+        "into": "en",
+        "aiSolutions": "Soluciones de IA",
+        "description": "Somos una empresa de innovación deep-tech que convierte desafíos complejos en soluciones tecnológicas <0>listas para producción</0> y escalables, impulsadas por <1>IA, IA Generativa e Inteligencia Agéntica</1>.",
+        "ctaSubmit": "Envía tu Desafío",
+        "ctaExplore": "Explorar Proyectos",
+        "scroll": "Deslizar"
+    },
+    "vision": {
+        "title": "Nuestra Visión",
+        "subtitle": "Impulsando el progreso humano a través de la excelencia tecnológica",
+        "beyondPrototypes": "Más allá de los Prototipos,",
+        "intoProduction": "Hacia la Producción",
+        "visionDescription": "Identificamos desafíos del mundo real y los transformamos en soluciones tecnológicas escalables y listas para producción; no solo demostraciones, sino <0>sistemas implementables</0> que crean un impacto duradero.",
+        "mission": {
+            "subtitle": "Nuestra Misión",
+            "title": "Ingeniería del Futuro de los <0>Sistemas Inteligentes</0>",
+            "description": "En Siddhi Dynamics LLP, creemos que cada problema complejo tiene una solución tecnológica esperando ser construida. Nuestra misión es cerrar la brecha entre la investigación de vanguardia en IA y las aplicaciones del mundo real.",
+            "stats": {
+                "powered": "Impulsado",
+                "productionReady": "Listo para Producción",
+                "scalable": "Escalable",
+                "autonomous": "Autónomo"
+            }
+        },
+        "features": {
+            "ai": {
+                "title": "Inteligencia Artificial",
+                "description": "Modelos de aprendizaje profundo y sistemas inteligentes que se adaptan y evolucionan para resolver problemas complejos."
+            },
+            "genAi": {
+                "title": "IA Generativa",
+                "description": "Creación de nuevos contenidos, diseños y soluciones con modelos generativos de vanguardia."
+            },
+            "agenticAi": {
+                "title": "IA Agéntica",
+                "description": "Agentes de IA autónomos que razonan, planifican y ejecutan flujos de trabajo complejos de varios pasos."
+            },
+            "automation": {
+                "title": "Automatización Inteligente",
+                "description": "Automatización de extremo a extremo que transforma las operaciones con precisión y confiabilidad."
+            }
+        }
+    },
+    "projects": {
+        "title": "Nuestros Productos",
+        "subtitle": "Construyendo el <0>Futuro</0>",
+        "description": "Explore nuestra cartera de plataformas de IA listas para producción que transforman la construcción, la educación, la gestión de la propiedad y la automatización personal.",
+        "readMore": "Leer Más ↓",
+        "showLess": "Ver Menos ↑",
+        "progress": "Progreso del Desarrollo",
+        "access": "Acceder a la Plataforma",
+        "waitlist": "Unirse a la Lista de Espera",
+        "items": {
+            "archplan": {
+                "name": "ArchPlan AI",
+                "tagline": "Plataforma de Inteligencia de Construcción Impulsada por IA",
+                "description": "Una plataforma integral impulsada por IA diseñada para digitalizar y agilizar todo el ciclo de vida de la construcción en India.",
+                "features": [
+                    "Planos IA 2D/3D",
+                    "Cumplimiento Vastu",
+                    "Generación de BOQ",
+                    "Estimación de Costos",
+                    "Mercado de Materiales",
+                    "Gestión de Proyectos"
+                ]
+            }
+        }
+    },
+    "waitlistModal": {
+        "title": "Unirse a la Lista de Espera",
+        "subtitle": "Sé el primero en experimentar <0>{{name}}</0>",
+        "successTitle": "¡Estás en la lista!",
+        "successDescription": "Te notificaremos cuando {{name}} se lance.",
+        "nameLabel": "Tu Nombre",
+        "namePlaceholder": "Ingresa tu nombre",
+        "emailLabel": "Dirección de Correo",
+        "emailPlaceholder": "Ingresa tu correo",
+        "commentLabel": "Comentarios/Ideas",
+        "joinButton": "Unirse a la Lista",
+        "joiningButton": "Uniéndose...",
+        "successToastTitle": "¡Éxito!",
+        "successToastDesc": "Has sido añadido a la lista de espera."
+    },
+    "submit": {
+        "title": "Envía tu Desafío",
+        "subtitle": "Resolvámoslo <0>Juntos</0>",
+        "description": "¿Tienes un problema complejo que necesita una solución tecnológica? Buscamos desafíos del mundo real para abordar con nuestros sistemas de IA.",
+        "toasts": {
+            "listening": "Escuchando... Habla ahora.",
+            "voiceFail": "Error en el reconocimiento de voz.",
+            "problemSuccess": "¡Problema enviado con éxito!",
+            "genericError": "Error al enviar."
+        }
+    },
+    "footer": {
+        "description": "Ingeniería del futuro de los sistemas inteligentes a través de la innovación deep-tech y el impacto en el mundo real.",
+        "copyright": "© {{year}} Siddhi Dynamics LLP. Todos los derechos reservados."
+    }
+}

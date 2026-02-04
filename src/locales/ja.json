@@ -1,0 +1,109 @@
+{
+    "nav": {
+        "vision": "ビジョン",
+        "projects": "プロジェクト",
+        "submit": "課題を提出",
+        "collab": "コラボレーション",
+        "portal": "コラボポータルへ",
+        "getStarted": "始める"
+    },
+    "hero": {
+        "badge": "次世代AIソリューション",
+        "transforming": "変革する",
+        "realWorldProblems": "現実世界の課題",
+        "into": "を",
+        "aiSolutions": "AIソリューションへ",
+        "description": "当社は、ディープテック・イノベーション企業として、複雑な課題を<0>プロダクションレディ</0>でスケーラブルな技術ソリューションに変換します。<1>AI、ジェネレーティブAI、エージェンティック・インテリジェンス</1>を駆使しています。",
+        "ctaSubmit": "課題を提出する",
+        "ctaExplore": "プロジェクトを探索",
+        "scroll": "スクロール"
+    },
+    "vision": {
+        "title": "私たちのビジョン",
+        "subtitle": "技術の卓越性を通じて人類の進歩を加速する",
+        "beyondPrototypes": "プロトタイプを超えて、",
+        "intoProduction": "本番環境へ",
+        "visionDescription": "現実世界の課題を特定し、スケーラブルでプロダクションレディな技術ソリューションに変革します。単なるデモではなく、持続的なインパクトを与える<0>展開可能なシステム</0>を構築します。",
+        "mission": {
+            "subtitle": "ミッション",
+            "title": "<0>インテリジェント・システム</0>の未来を築く",
+            "description": "Siddhi Dynamics LLPでは、あらゆる複雑な課題には解決すべき技術的ソリューションがあると信じています。最先端のAI研究と現実世界のアプリケーションの架け橋となることが私たちの使命です。",
+            "stats": {
+                "powered": "駆動中",
+                "productionReady": "本番対応",
+                "scalable": "拡張性あり",
+                "autonomous": "自律型"
+            }
+        },
+        "features": {
+            "ai": {
+                "title": "人工知能 (AI)",
+                "description": "複雑な問題を解決するために適応し進化するディープラーニングモデルとインテリジェントシステム。"
+            },
+            "genAi": {
+                "title": "ジェネレーティブAI",
+                "description": "最先端の生成モデルを使用して、新しいコンテンツ、デザイン、ソリューションを創造します。"
+            },
+            "agenticAi": {
+                "title": "エージェンティックAI",
+                "description": "推論、計画、複雑なマルチステップのワークフローを実行する自律型AIエージェント。"
+            },
+            "automation": {
+                "title": "インテリジェント・オートメーション",
+                "description": "精度と信頼性を持って業務を変革するエンドツーエンドの自動化。"
+            }
+        }
+    },
+    "projects": {
+        "title": "製品ラインナップ",
+        "subtitle": "<0>未来</0>を構築する",
+        "description": "建設、教育、不動産管理、個人向け自動化を変革するプロダクションレディなAIプラットフォームのポートフォリオをご覧ください。",
+        "readMore": "詳細を見る ↓",
+        "showLess": "閉じる ↑",
+        "progress": "開発状況",
+        "access": "プラットフォームにアクセス",
+        "waitlist": "ウェイトリストに参加",
+        "items": {
+            "archplan": {
+                "name": "ArchPlan AI",
+                "tagline": "AI駆動型建設インテリジェンス・プラットフォーム",
+                "description": "インドにおける建設ライフサイクル全体をデジタル化し合理化するために設計された、包括的なAI駆動型プラットフォーム。",
+                "features": [
+                    "AI 2D/3D図面",
+                    "Vastu準拠",
+                    "BOQ自動作成",
+                    "コスト見積もり",
+                    "資材マーケットプレイス",
+                    "プロジェクト管理"
+                ]
+            }
+        }
+    },
+    "waitlistModal": {
+        "title": "ウェイトリストに参加",
+        "subtitle": "<0>{{name}}</0>をいち早く体験",
+        "successTitle": "リストに追加されました！",
+        "successDescription": "{{name}}のリリース時に通知いたします。",
+        "nameLabel": "お名前",
+        "namePlaceholder": "名前を入力",
+        "emailLabel": "メールアドレス",
+        "emailPlaceholder": "メールを入力",
+        "commentLabel": "コメント/アイデア",
+        "joinButton": "リストに参加"
+    },
+    "submit": {
+        "title": "課題を提出する",
+        "subtitle": "<0>共</0>に解決しましょう",
+        "description": "技術的ソリューションを必要とする複雑な課題をお持ちですか？当社のAIシステムで取り組むべき現実世界の課題を募集しています。",
+        "toasts": {
+            "listening": "聞き取り中... お話しください。",
+            "voiceFail": "音声認識に失敗しました。",
+            "problemSuccess": "課題が正常に提出されました！",
+            "genericError": "送信に失敗しました。"
+        }
+    },
+    "footer": {
+        "description": "ディープテック・イノベーションと現実世界のインパクトを通じて、インテリジェント・システムの未来をエンジニアリングします。",
+        "copyright": "© {{year}} Siddhi Dynamics LLP. All rights reserved."
+    }
+}

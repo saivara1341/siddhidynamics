@@ -22,7 +22,7 @@ const languages = [
 ];
 
 export function LanguageSwitcher() {
-    const { i18n, t } = useTranslation();
+    const { i18n } = useTranslation();
     const [open, setOpen] = useState(false);
 
     const changeLanguage = (lng: string) => {
@@ -40,11 +40,11 @@ export function LanguageSwitcher() {
                     <span className="font-medium">{currentLanguage.native}</span>
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px] bg-background/95 backdrop-blur-2xl border-white/10 p-8 rounded-3xl">
+            <DialogContent className="sm:max-w-[600px] bg-background/95 backdrop-blur-2xl border-white/10 p-8 rounded-3xl overflow-hidden">
                 <DialogHeader className="mb-6">
                     <DialogTitle className="text-2xl font-bold gradient-text text-center">Select Language</DialogTitle>
                 </DialogHeader>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
                     {languages.map((lang, index) => (
                         <motion.button
                             key={lang.code}
@@ -52,26 +52,32 @@ export function LanguageSwitcher() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.05 }}
                             onClick={() => changeLanguage(lang.code)}
-                            className={`flex flex-col items-start p-4 rounded-2xl border transition-all duration-300 relative group overflow-hidden ${i18n.language === lang.code
+                            className={`flex flex-col items-center justify-center p-6 rounded-2xl border transition-all duration-300 relative group overflow-hidden ${i18n.language === lang.code
                                     ? 'bg-primary/10 border-primary shadow-lg shadow-primary/20'
                                     : 'bg-white/5 border-white/5 hover:border-primary/50 hover:bg-white/10'
                                 }`}
                         >
-                            <div className="flex justify-between items-center w-full mb-1">
-                                <span className={`text-sm font-bold tracking-wide ${i18n.language === lang.code ? 'text-primary' : 'text-foreground'}`}>
-                                    {lang.native}
-                                </span>
-                                {i18n.language === lang.code && <Check className="h-4 w-4 text-primary" />}
-                            </div>
-                            <span className="text-xs text-muted-foreground">{lang.name}</span>
+                            <span className={`text-lg font-bold mb-1 ${i18n.language === lang.code ? 'text-primary' : 'text-foreground'}`}>
+                                {lang.native}
+                            </span>
+                            <span className="text-xs text-muted-foreground uppercase tracking-widest">{lang.name}</span>
+
+                            {i18n.language === lang.code && (
+                                <motion.div
+                                    layoutId="active-check"
+                                    className="absolute top-3 right-3"
+                                >
+                                    <Check className="h-4 w-4 text-primary" />
+                                </motion.div>
+                            )}
 
                             {/* Decorative element */}
-                            <div className={`absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-full blur-xl transition-opacity duration-300 ${i18n.language === lang.code ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+                            <div className={`absolute -bottom-4 -right-4 w-12 h-12 bg-primary/10 rounded-full blur-xl transition-opacity duration-300 ${i18n.language === lang.code ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
                         </motion.button>
                     ))}
                 </div>
                 <div className="mt-8 pt-6 border-t border-white/5 text-center">
-                    <p className="text-xs text-muted-foreground uppercase tracking-[0.2em]">Engineering Global Intelligence</p>
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-[0.3em] font-bold">Engineering Global Intelligence • SIDDHI Dynamics</p>
                 </div>
             </DialogContent>
         </Dialog>
