@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import { Scene3D } from '../three/Scene3D';
 
 const floatingAnimation = {
@@ -37,10 +38,11 @@ const textRevealVariants = {
 
 
 export const HeroSection = () => {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
   const { scrollY } = useScroll();
-  
+
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const scale = useTransform(scrollY, [0, 500], [1, 0.95]);
@@ -57,7 +59,7 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden particle-ring"
       style={{
@@ -66,27 +68,27 @@ export const HeroSection = () => {
       } as React.CSSProperties}
     >
       <Scene3D />
-      
+
       {/* Multi-layered gradients */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-r from-background/30 via-transparent to-background/30 pointer-events-none" />
-      
+
       {/* Animated rings with enhanced motion */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <motion.div 
-          className="interactive-ring w-[400px] h-[400px]" 
+        <motion.div
+          className="interactive-ring w-[400px] h-[400px]"
           style={{ animationDelay: '0s' }}
           animate={{ rotate: 360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
         />
-        <motion.div 
-          className="interactive-ring w-[600px] h-[600px]" 
+        <motion.div
+          className="interactive-ring w-[600px] h-[600px]"
           style={{ animationDelay: '1s' }}
           animate={{ rotate: -360 }}
           transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
         />
-        <motion.div 
-          className="interactive-ring w-[800px] h-[800px]" 
+        <motion.div
+          className="interactive-ring w-[800px] h-[800px]"
           style={{ animationDelay: '2s' }}
           animate={{ rotate: 360 }}
           transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
@@ -94,31 +96,31 @@ export const HeroSection = () => {
       </div>
 
       {/* Floating decorative elements */}
-      <motion.div 
+      <motion.div
         className="absolute top-1/4 left-10 w-20 h-20 rounded-full bg-primary/10 blur-xl"
         animate={floatingAnimation}
       />
-      <motion.div 
+      <motion.div
         className="absolute top-1/3 right-16 w-16 h-16 rounded-full bg-accent/15 blur-lg"
         animate={{ ...floatingAnimation, transition: { ...floatingAnimation.transition, delay: 1 } }}
       />
-      <motion.div 
+      <motion.div
         className="absolute bottom-1/3 left-1/4 w-12 h-12 rounded-full bg-primary/20 blur-lg"
         animate={{ ...floatingAnimation, transition: { ...floatingAnimation.transition, delay: 2 } }}
       />
-      
+
       {/* Animated gradient orbs */}
-      <motion.div 
+      <motion.div
         className="absolute top-1/2 left-1/4 w-64 h-64 rounded-full bg-gradient-to-br from-primary/5 to-accent/5 blur-3xl"
         animate={pulseAnimation}
       />
-      <motion.div 
+      <motion.div
         className="absolute bottom-1/4 right-1/4 w-48 h-48 rounded-full bg-gradient-to-tr from-accent/5 to-primary/5 blur-3xl"
         animate={{ ...pulseAnimation, transition: { ...pulseAnimation.transition, delay: 1.5 } }}
       />
-      
+
       {/* Content */}
-      <motion.div 
+      <motion.div
         style={{ y, opacity, scale }}
         className="container mx-auto px-6 relative z-10 text-center"
       >
@@ -145,42 +147,42 @@ export const HeroSection = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
               </span>
-              <span className="text-sm text-muted-foreground font-medium">Next-Generation AI Solutions</span>
+              <span className="text-sm text-muted-foreground font-medium">{t('hero.badge')}</span>
             </motion.div>
           </motion.div>
 
           {/* Main heading with staggered text reveal */}
           <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-8 leading-[1.1] tracking-tight">
-            <motion.span 
+            <motion.span
               className="block text-foreground"
               custom={0}
               initial="hidden"
               animate="visible"
               variants={textRevealVariants}
             >
-              Transforming
+              {t('hero.transforming')}
             </motion.span>
-            <motion.span 
+            <motion.span
               className="block gradient-text glow-text"
               custom={1}
               initial="hidden"
               animate="visible"
               variants={textRevealVariants}
             >
-              Real-World Problems
+              {t('hero.realWorldProblems')}
             </motion.span>
-            <motion.span 
+            <motion.span
               className="block text-foreground"
               custom={2}
               initial="hidden"
               animate="visible"
               variants={textRevealVariants}
             >
-              into <motion.span 
+              {t('hero.into')} <motion.span
                 className="gradient-text-reverse glow-text-accent inline-block"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
-              >AI Solutions</motion.span>
+              >{t('hero.aiSolutions')}</motion.span>
             </motion.span>
           </div>
 
@@ -191,9 +193,13 @@ export const HeroSection = () => {
             transition={{ duration: 1, delay: 0.8 }}
             className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
           >
-            We are a deep-tech innovation firm converting complex challenges into 
-            scalable, <span className="text-primary font-medium">production-ready</span> technology solutions powered by{' '}
-            <span className="text-accent font-medium">AI, Generative AI, and Agentic Intelligence</span>.
+            <Trans
+              i18nKey="hero.description"
+              components={[
+                <span className="text-primary font-medium" />,
+                <span className="text-accent font-medium" />
+              ]}
+            />
           </motion.p>
 
           {/* CTA buttons */}
@@ -212,13 +218,13 @@ export const HeroSection = () => {
               <span className="absolute inset-0 bg-gradient-to-r from-primary via-primary to-accent opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
               <span className="absolute inset-0 bg-gradient-to-r from-primary via-primary to-accent blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
               <span className="relative flex items-center gap-2 text-primary-foreground">
-                Submit Your Challenge
+                {t('hero.ctaSubmit')}
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </span>
             </motion.a>
-            
+
             <motion.a
               href="#projects"
               className="group px-8 py-4 rounded-xl font-semibold text-lg border border-primary/40 text-primary hover:bg-primary/10 hover:border-primary/60 transition-all duration-500"
@@ -226,7 +232,7 @@ export const HeroSection = () => {
               whileTap={{ scale: 0.95 }}
             >
               <span className="flex items-center gap-2">
-                Explore Projects
+                {t('hero.ctaExplore')}
                 <svg className="w-5 h-5 group-hover:rotate-45 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
@@ -247,12 +253,12 @@ export const HeroSection = () => {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="flex flex-col items-center gap-2"
           >
-            <span className="text-xs text-muted-foreground tracking-widest uppercase">Scroll</span>
+            <span className="text-xs text-muted-foreground tracking-widest uppercase">{t('hero.scroll')}</span>
             <div className="w-6 h-10 rounded-full border-2 border-primary/30 flex items-start justify-center p-2">
-              <motion.div 
+              <motion.div
                 animate={{ y: [0, 10, 0], opacity: [1, 0.5, 1] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="w-1.5 h-3 rounded-full bg-primary" 
+                className="w-1.5 h-3 rounded-full bg-primary"
               />
             </div>
           </motion.div>

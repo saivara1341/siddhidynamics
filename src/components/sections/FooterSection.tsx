@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import siddhiLogo from '@/assets/siddhi-logo.jpg';
 
 const linkVariants = {
@@ -16,6 +17,7 @@ const linkVariants = {
 };
 
 export const FooterSection = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
@@ -57,7 +59,7 @@ export const FooterSection = () => {
                 Siddhi Dynamics LLP
               </span>
               <span className="text-sm text-muted-foreground">
-                Next-Generation AI Solutions
+                {t('hero.badge')}
               </span>
             </div>
           </motion.div>
@@ -68,10 +70,10 @@ export const FooterSection = () => {
             className="flex items-center gap-10"
           >
             {[
-              { name: 'Vision', href: '#/vision' },
-              { name: 'Projects', href: '#/projects' },
-              { name: 'Submit Problem', href: '#/submit' },
-              { name: 'Collab', href: '#/portal' },
+              { name: t('nav.vision'), href: '#/vision' },
+              { name: t('nav.projects'), href: '#/projects' },
+              { name: t('nav.submit'), href: '#/submit' },
+              { name: t('nav.collab'), href: '#/portal' },
             ].map((link, index) => (
               <motion.a
                 key={link.name}
@@ -149,7 +151,7 @@ export const FooterSection = () => {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.7 }}
           >
-            © {new Date().getFullYear()} Siddhi Dynamics LLP. All rights reserved.
+            © {new Date().getFullYear()} Siddhi Dynamics LLP. {t('footer.copyright', { year: new Date().getFullYear() })}
           </motion.p>
           <motion.p
             className="text-xs text-muted-foreground/60 flex items-center gap-2"
@@ -165,7 +167,7 @@ export const FooterSection = () => {
               }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             />
-            Engineering the future of intelligent systems
+            {t('footer.description')}
           </motion.p>
         </motion.div>
       </div>

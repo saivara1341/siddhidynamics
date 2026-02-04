@@ -1,30 +1,40 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '@/integrations/supabase/client';
 import siddhiLogo from '@/assets/siddhi-logo.jpg';
-
-const navLinks = [
-  { name: 'Vision', href: '#/vision' },
-  { name: 'Projects', href: '#/projects' },
-  { name: 'Submit Problem', href: '#/submit' },
-  { name: 'Collab', href: '#/portal' },
-];
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export const Navbar = () => {
+  const { t } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { scrollY } = useScroll();
 
-  const headerOpacity = useTransform(scrollY, [0, 100], [0, 1]);
+  const navLinks = [
+    { name: t('nav.vision'), href: '#/vision' },
+    { name: t('nav.projects'), href: '#/projects' },
+    { name: t('nav.submit'), href: '#/submit' },
+    { name: t('nav.collab'), href: '#/portal' },
+  ];
+
+  const headerOpacity = useTransform(scrollY, [0, 30], [0, 1]);
   const headerPadding = useTransform(scrollY, [0, 100], ['24px', '14px']);
   const headerBlur = useTransform(scrollY, [0, 100], ['0px', '40px']);
 
   useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+
     // Basic auth check
     supabase.auth.getSession().then(({ data: { session } }) => {
       setIsLoggedIn(!!session);
     });
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -33,12 +43,17 @@ export const Navbar = () => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-        className="fixed top-0 left-0 right-0 z-50"
+        className="fixed top-0 left-0 right-0 z-[100]"
       >
-        {/* Frosted Glass Layer with extreme blur */}
+        {/* Robust Glass Background */}
         <motion.div
-          style={{ opacity: headerOpacity }}
-          className="absolute inset-0 backdrop-blur-[35px] bg-background/70 border-b border-border/50"
+          className="absolute inset-0 transition-colors duration-300"
+          style={{
+            backgroundColor: scrolled ? 'rgba(2, 2, 2, 0.98)' : 'rgba(2, 2, 2, 0.85)',
+            backdropFilter: 'blur(45px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(45px) saturate(180%)',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+          }}
         />
 
         <motion.div
@@ -93,6 +108,10 @@ export const Navbar = () => {
                 </motion.a>
               ))}
 
+              <div className="mx-2">
+                <LanguageSwitcher />
+              </div>
+
               <motion.a
                 href={isLoggedIn ? "#/portal" : "#/submit"}
                 className="relative ml-4 px-6 py-2.5 rounded-xl font-semibold text-sm overflow-hidden group"
@@ -105,38 +124,41 @@ export const Navbar = () => {
                 <span className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-90 group-hover:opacity-100 transition-opacity" />
                 <span className="absolute inset-0 bg-gradient-to-r from-primary to-accent blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
                 <span className="relative text-primary-foreground">
-                  {isLoggedIn ? 'Go to Collab' : 'Get Started'}
+                  {isLoggedIn ? t('nav.portal') : t('nav.getStarted')}
                 </span>
               </motion.a>
             </nav>
 
             {/* Mobile menu button */}
-            <motion.button
-              className="md:hidden relative w-10 h-10 flex items-center justify-center"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              whileTap={{ scale: 0.9 }}
-            >
-              <div className="flex flex-col gap-1.5">
-                <motion.span
-                  className="w-6 h-0.5 bg-foreground rounded-full"
-                  animate={{
-                    rotate: mobileMenuOpen ? 45 : 0,
-                    y: mobileMenuOpen ? 8 : 0
-                  }}
-                />
-                <motion.span
-                  className="w-6 h-0.5 bg-foreground rounded-full"
-                  animate={{ opacity: mobileMenuOpen ? 0 : 1 }}
-                />
-                <motion.span
-                  className="w-6 h-0.5 bg-foreground rounded-full"
-                  animate={{
-                    rotate: mobileMenuOpen ? -45 : 0,
-                    y: mobileMenuOpen ? -8 : 0
-                  }}
-                />
-              </div>
-            </motion.button>
+            <div className="flex items-center gap-4 md:hidden">
+              <LanguageSwitcher />
+              <motion.button
+                className="relative w-10 h-10 flex items-center justify-center"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                whileTap={{ scale: 0.9 }}
+              >
+                <div className="flex flex-col gap-1.5">
+                  <motion.span
+                    className="w-6 h-0.5 bg-foreground rounded-full"
+                    animate={{
+                      rotate: mobileMenuOpen ? 45 : 0,
+                      y: mobileMenuOpen ? 8 : 0
+                    }}
+                  />
+                  <motion.span
+                    className="w-6 h-0.5 bg-foreground rounded-full"
+                    animate={{ opacity: mobileMenuOpen ? 0 : 1 }}
+                  />
+                  <motion.span
+                    className="w-6 h-0.5 bg-foreground rounded-full"
+                    animate={{
+                      rotate: mobileMenuOpen ? -45 : 0,
+                      y: mobileMenuOpen ? -8 : 0
+                    }}
+                  />
+                </div>
+              </motion.button>
+            </div>
           </div>
         </motion.div>
       </motion.header>

@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Star, Loader2, CheckCircle } from 'lucide-react';
+import { useTranslation, Trans } from 'react-i18next';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
 
 const emailSchema = z.string().email();
+
 interface WaitlistModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -15,6 +17,7 @@ interface WaitlistModalProps {
 }
 
 export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentColor }: WaitlistModalProps) => {
+  const { t } = useTranslation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [comment, setComment] = useState('');
@@ -31,8 +34,8 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
 
     if (!name.trim() || !email.trim()) {
       toast({
-        title: "Missing Information",
-        description: "Please fill in your name and email.",
+        title: t('waitlistModal.missingInfoTitle'),
+        description: t('waitlistModal.missingInfoDesc'),
         variant: "destructive",
       });
       return;
@@ -41,8 +44,8 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
     const emailValidation = emailSchema.safeParse(email.trim());
     if (!emailValidation.success) {
       toast({
-        title: "Invalid Email",
-        description: "Please enter a valid email address.",
+        title: t('waitlistModal.invalidEmailTitle'),
+        description: t('waitlistModal.invalidEmailDesc'),
         variant: "destructive",
       });
       return;
@@ -63,8 +66,8 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
 
       if (existingEntry) {
         toast({
-          title: "Already Joined",
-          description: "You've already joined the waitlist for this project!",
+          title: t('waitlistModal.alreadyJoinedTitle'),
+          description: t('waitlistModal.alreadyJoinedDesc'),
           variant: "default",
         });
         setIsSubmitting(false);
@@ -87,8 +90,8 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
 
       setIsSuccess(true);
       toast({
-        title: "Success!",
-        description: "You've been added to the waitlist.",
+        title: t('waitlistModal.successToastTitle'),
+        description: t('waitlistModal.successToastDesc'),
       });
 
       setTimeout(() => {
@@ -103,8 +106,8 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
     } catch (error) {
       console.error('Waitlist error:', error);
       toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
+        title: t('waitlistModal.errorTitle'),
+        description: t('waitlistModal.errorDesc'),
         variant: "destructive",
       });
     } finally {
@@ -167,9 +170,9 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
                 >
                   <CheckCircle className="w-10 h-10" />
                 </motion.div>
-                <h3 className="text-2xl font-bold font-display mb-2">You're on the list!</h3>
+                <h3 className="text-2xl font-bold font-display mb-2">{t('waitlistModal.successTitle')}</h3>
                 <p className="text-muted-foreground">
-                  We'll notify you when {projectName} launches.
+                  {t('waitlistModal.successDescription', { name: projectName })}
                 </p>
               </motion.div>
             ) : (
@@ -177,10 +180,16 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
                 {/* Header */}
                 <div className="relative text-center mb-8">
                   <h2 className="text-2xl font-bold font-display mb-2">
-                    Join the Waitlist
+                    {t('waitlistModal.title')}
                   </h2>
                   <p className="text-muted-foreground">
-                    Be the first to experience <span className={isPrimary ? 'text-primary' : 'text-accent'}>{projectName}</span>
+                    <Trans
+                      i18nKey="waitlistModal.subtitle"
+                      values={{ name: projectName }}
+                      components={[
+                        <span className={isPrimary ? 'text-primary' : 'text-accent'} />
+                      ]}
+                    />
                   </p>
                 </div>
 
@@ -188,13 +197,13 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <label className="block text-sm font-medium mb-2 text-foreground">
-                      Your Name
+                      {t('waitlistModal.nameLabel')}
                     </label>
                     <input
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Enter your name"
+                      placeholder={t('waitlistModal.namePlaceholder')}
                       className="input-premium"
                       required
                     />
@@ -202,25 +211,25 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
 
                   <div>
                     <label className="block text-sm font-medium mb-2 text-foreground">
-                      Email Address
+                      {t('waitlistModal.emailLabel')}
                     </label>
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email"
+                      placeholder={t('waitlistModal.emailPlaceholder')}
                       className="input-premium"
                       required
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-2 text-foreground">
-                      Comments/Ideas <span className="text-muted-foreground text-xs">(Optional)</span>
+                      {t('waitlistModal.commentLabel')} <span className="text-muted-foreground text-xs">{t('waitlistModal.commentOptional')}</span>
                     </label>
                     <textarea
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
-                      placeholder="Share your specific needs, ideas, or feedback for this project..."
+                      placeholder={t('waitlistModal.commentPlaceholder')}
                       className="input-premium resize-none min-h-[100px] border-primary/20"
                       rows={4}
                     />
@@ -229,7 +238,7 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
                   {/* Rating */}
                   <div>
                     <label className="block text-sm font-medium mb-3 text-foreground">
-                      Rate Our Idea
+                      {t('waitlistModal.ratingLabel')}
                     </label>
                     <div className="flex items-center justify-center gap-2">
                       {[1, 2, 3, 4, 5].map((star) => (
@@ -260,11 +269,7 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
                         animate={{ opacity: 1, y: 0 }}
                         className="text-center text-sm text-muted-foreground mt-2"
                       >
-                        {rating === 1 && "We'll do better!"}
-                        {rating === 2 && "Thanks for the feedback!"}
-                        {rating === 3 && "Good to know!"}
-                        {rating === 4 && "Great! We're on track!"}
-                        {rating === 5 && "Amazing! You love it! 🎉"}
+                        {t(`waitlistModal.ratings.${rating}`)}
                       </motion.p>
                     )}
                   </div>
@@ -283,10 +288,10 @@ export const WaitlistModal = ({ isOpen, onClose, projectId, projectName, accentC
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
-                        Joining...
+                        {t('waitlistModal.joiningButton')}
                       </>
                     ) : (
-                      'Join Waitlist'
+                      t('waitlistModal.joinButton')
                     )}
                   </motion.button>
                 </form>

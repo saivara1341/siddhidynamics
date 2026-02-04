@@ -1,5 +1,6 @@
 import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import { Mic, MicOff } from 'lucide-react';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -15,6 +16,7 @@ const contactSchema = z.object({
 });
 
 export const SubmitSection = () => {
+  const { t, i18n } = useTranslation();
   const ref = useRef(null);
   const formRef = useRef<HTMLFormElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
@@ -61,11 +63,11 @@ export const SubmitSection = () => {
       const recognition = new SpeechRecognition();
       recognition.continuous = true;
       recognition.interimResults = true;
-      recognition.lang = 'en-US';
+      recognition.lang = i18n.language === 'en' ? 'en-US' : i18n.language === 'hi' ? 'hi-IN' : 'te-IN';
 
       recognition.onstart = () => {
         setIsListening(true);
-        toast.info('Listening... Speak now.', { duration: 2000 });
+        toast.info(t('submit.toasts.listening'), { duration: 2000 });
       };
 
       recognition.onresult = (event: any) => {
@@ -82,7 +84,7 @@ export const SubmitSection = () => {
       recognition.onerror = (event: any) => {
         console.error('Speech recognition error:', event.error);
         setIsListening(false);
-        toast.error('Voice recognition failed. Please check permissions.');
+        toast.error(t('submit.toasts.voiceFail'));
       };
 
       recognition.onend = () => {
@@ -91,19 +93,13 @@ export const SubmitSection = () => {
 
       recognition.start();
     } else {
-      toast.error('Voice recognition not supported in this browser.');
+      toast.error(t('submit.toasts.voiceNotSupported'));
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    const successMessages = {
-      problem: 'Problem submitted successfully! Our AI agents will analyze your challenge.',
-      requirement: 'Requirements received! We\'ll get back to you with a tailored solution.',
-      inquiry: 'Thank you for reaching out! We\'ll respond to your inquiry shortly.',
-    };
 
     try {
       const validatedData = contactSchema.parse(formData);
@@ -121,17 +117,16 @@ export const SubmitSection = () => {
 
       if (error) throw error;
 
-      toast.success(successMessages[formData.inquiryType as keyof typeof successMessages]);
+      toast.success(t(`submit.toasts.${formData.inquiryType}Success`));
       setFormData({ name: '', email: '', designation: '', organization: '', inquiryType: 'problem', message: '' });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const firstError = error.errors[0];
-        toast.error(firstError?.message || 'Please check your input and try again.');
+        toast.error(t('submit.toasts.inputError'));
       } else {
         if (import.meta.env.DEV) {
           console.error('Contact form submission error:', error);
         }
-        toast.error('Failed to submit. Please try again.');
+        toast.error(t('submit.toasts.genericError'));
       }
     } finally {
       setIsSubmitting(false);
@@ -165,16 +160,19 @@ export const SubmitSection = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              <span className="text-sm text-muted-foreground font-medium">AI-Powered Analysis</span>
+              <span className="text-sm text-muted-foreground font-medium">{t('submit.badge')}</span>
             </motion.div>
 
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Connect{' '}
-              <span className="gradient-text glow-text">With Us</span>
+              <Trans
+                i18nKey="submit.title"
+                components={[
+                  <span className="gradient-text glow-text" />
+                ]}
+              />
             </h2>
             <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto">
-              Share your challenges, requirements, or inquiries. Our team will analyze and provide{' '}
-              <span className="text-primary font-medium">tailored solutions</span> for your needs.
+              {t('submit.description')}
             </p>
           </div>
 
@@ -209,13 +207,13 @@ export const SubmitSection = () => {
                 {/* Inquiry Type Selector */}
                 <div className="space-y-3">
                   <label className="block text-sm font-medium text-foreground">
-                    What would you like to discuss?
+                    {t('submit.discussLabel')}
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {[
-                      { value: 'problem', label: 'Real-World Problem', icon: '🎯', hasQuestionMark: false },
-                      { value: 'requirement', label: 'Project Requirement', icon: '📋', hasQuestionMark: false },
-                      { value: 'inquiry', label: 'General Inquiry', icon: '❓', hasQuestionMark: false },
+                      { value: 'problem', label: t('submit.types.problem'), icon: '🎯', hasQuestionMark: false },
+                      { value: 'requirement', label: t('submit.types.requirement'), icon: '📋', hasQuestionMark: false },
+                      { value: 'inquiry', label: t('submit.types.inquiry'), icon: '❓', hasQuestionMark: false },
                     ].map((type) => (
                       <motion.button
                         key={type.value}
@@ -230,9 +228,6 @@ export const SubmitSection = () => {
                       >
                         <span className="text-2xl sm:mb-2 block shrink-0">
                           {type.icon}
-                          {type.hasQuestionMark && (
-                            <span className="absolute -top-1 -right-3 text-xs font-bold text-red-500">?</span>
-                          )}
                         </span>
                         <span className={`text-sm font-medium leading-tight ${formData.inquiryType === type.value ? 'text-primary' : 'text-muted-foreground'
                           }`}>
@@ -250,7 +245,7 @@ export const SubmitSection = () => {
                       className={`block text-sm font-medium transition-colors duration-300 ${focusedField === 'name' ? 'text-primary' : 'text-foreground'
                         }`}
                     >
-                      Full Name <span className="text-primary">*</span>
+                      {t('submit.fields.name')} <span className="text-primary">*</span>
                     </label>
                     <motion.div
                       animate={{
@@ -268,7 +263,7 @@ export const SubmitSection = () => {
                         onChange={handleChange}
                         onFocus={() => setFocusedField('name')}
                         onBlur={() => setFocusedField(null)}
-                        placeholder="Enter your name"
+                        placeholder={t('submit.fields.namePlaceholder')}
                         className="input-premium"
                         required
                       />
@@ -281,7 +276,7 @@ export const SubmitSection = () => {
                       className={`block text-sm font-medium transition-colors duration-300 ${focusedField === 'email' ? 'text-primary' : 'text-foreground'
                         }`}
                     >
-                      Email Address <span className="text-primary">*</span>
+                      {t('submit.fields.email')} <span className="text-primary">*</span>
                     </label>
                     <motion.div
                       animate={{
@@ -299,7 +294,7 @@ export const SubmitSection = () => {
                         onChange={handleChange}
                         onFocus={() => setFocusedField('email')}
                         onBlur={() => setFocusedField(null)}
-                        placeholder="your@email.com"
+                        placeholder={t('submit.fields.emailPlaceholder')}
                         className="input-premium"
                         required
                       />
@@ -314,7 +309,7 @@ export const SubmitSection = () => {
                       className={`block text-sm font-medium transition-colors duration-300 ${focusedField === 'designation' ? 'text-primary' : 'text-foreground'
                         }`}
                     >
-                      Designation <span className="text-muted-foreground">(Optional)</span>
+                      {t('submit.fields.designation')} <span className="text-muted-foreground">{t('waitlistModal.commentOptional')}</span>
                     </label>
                     <motion.div
                       animate={{
@@ -332,7 +327,7 @@ export const SubmitSection = () => {
                         onChange={handleChange}
                         onFocus={() => setFocusedField('designation')}
                         onBlur={() => setFocusedField(null)}
-                        placeholder="Your role"
+                        placeholder={t('submit.fields.designationPlaceholder')}
                         className="input-premium"
                       />
                     </motion.div>
@@ -344,7 +339,7 @@ export const SubmitSection = () => {
                       className={`block text-sm font-medium transition-colors duration-300 ${focusedField === 'organization' ? 'text-accent' : 'text-foreground'
                         }`}
                     >
-                      Organization <span className="text-muted-foreground">(Optional)</span>
+                      {t('submit.fields.organization')} <span className="text-muted-foreground">{t('waitlistModal.commentOptional')}</span>
                     </label>
                     <motion.div
                       animate={{
@@ -362,7 +357,7 @@ export const SubmitSection = () => {
                         onChange={handleChange}
                         onFocus={() => setFocusedField('organization')}
                         onBlur={() => setFocusedField(null)}
-                        placeholder="Company Name"
+                        placeholder={t('submit.fields.organizationPlaceholder')}
                         className="input-premium"
                       />
                     </motion.div>
@@ -375,9 +370,7 @@ export const SubmitSection = () => {
                     className={`block text-sm font-medium transition-colors duration-300 ${focusedField === 'message' ? 'text-primary' : 'text-foreground'
                       }`}
                   >
-                    {formData.inquiryType === 'problem' && 'Problem Statement'}
-                    {formData.inquiryType === 'requirement' && 'Project Requirements'}
-                    {formData.inquiryType === 'inquiry' && 'Your Message'}
+                    {t(`submit.fields.message.${formData.inquiryType}`)}
                     {' '}<span className="text-primary">*</span>
                   </label>
                   <motion.div
@@ -396,13 +389,7 @@ export const SubmitSection = () => {
                         onChange={handleChange}
                         onFocus={() => setFocusedField('message')}
                         onBlur={() => setFocusedField(null)}
-                        placeholder={
-                          formData.inquiryType === 'problem'
-                            ? 'Describe the real-world challenge you\'re facing in detail...'
-                            : formData.inquiryType === 'requirement'
-                              ? 'Describe your project requirements, features needed, timeline expectations...'
-                              : 'How can we help you? Share your questions or ideas...'
-                        }
+                        placeholder={t(`submit.fields.message.${formData.inquiryType}Placeholder`)}
                         rows={6}
                         className="input-premium resize-none pr-14"
                         required
@@ -441,13 +428,11 @@ export const SubmitSection = () => {
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                           </svg>
-                          Submitting...
+                          {t('submit.submitButton.submitting')}
                         </>
                       ) : (
                         <>
-                          {formData.inquiryType === 'problem' && 'Submit for AI Analysis'}
-                          {formData.inquiryType === 'requirement' && 'Send Requirements'}
-                          {formData.inquiryType === 'inquiry' && 'Send Message'}
+                          {t(`submit.submitButton.${formData.inquiryType}`)}
                           <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                           </svg>
@@ -460,7 +445,7 @@ export const SubmitSection = () => {
                     <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
-                    Your data is secured and processed by our AI
+                    {t('submit.security')}
                   </p>
                 </div>
               </div>
@@ -474,26 +459,7 @@ export const SubmitSection = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-20 grid md:grid-cols-3 gap-8"
           >
-            {[
-              {
-                step: '01',
-                title: 'Reach Out',
-                description: 'Share your problem, requirements, or inquiry with us',
-                color: 'primary',
-              },
-              {
-                step: '02',
-                title: 'Review',
-                description: 'Our team analyzes and understands your unique needs',
-                color: 'accent',
-              },
-              {
-                step: '03',
-                title: 'Respond',
-                description: 'Receive personalized solutions and actionable next steps',
-                color: 'primary',
-              },
-            ].map((item, index) => (
+            {(t('submit.process', { returnObjects: true }) as any[]).map((item, index) => (
               <motion.div
                 key={item.step}
                 className="text-center group"
@@ -502,7 +468,7 @@ export const SubmitSection = () => {
                 transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
                 whileHover={{ y: -5 }}
               >
-                <div className={`text-6xl font-bold mb-4 opacity-40 group-hover:opacity-70 transition-opacity ${item.color === 'primary' ? 'gradient-text' : 'gradient-text-reverse'
+                <div className={`text-6xl font-bold mb-4 opacity-40 group-hover:opacity-70 transition-opacity ${index % 2 === 0 ? 'gradient-text' : 'gradient-text-reverse'
                   }`}>
                   {item.step}
                 </div>

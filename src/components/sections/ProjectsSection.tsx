@@ -1,5 +1,6 @@
 import { motion, useInView, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import { GraduationCap, Heart, Home, Landmark, LucideIcon, Sparkles, ExternalLink, Bell } from 'lucide-react';
 import archplanLogo from '@/assets/archplan-logo.jpeg';
 import { WaitlistModal } from '@/components/WaitlistModal';
@@ -32,7 +33,7 @@ const featureVariants = {
   })
 };
 
-const projects: Array<{
+interface ProjectData {
   id: string;
   name: string;
   tagline: string;
@@ -44,74 +45,18 @@ const projects: Array<{
   accentColor: string;
   url?: string;
   progress: number;
-}> = [
-    {
-      id: 'archplan',
-      name: 'ArchPlan AI',
-      tagline: 'AI-Powered Construction Intelligence Platform',
-      description: 'A comprehensive, AI-driven platform designed to digitize and streamline the entire construction lifecycle in India. Connecting homeowners, civil engineers, architects, suppliers, and service providers within a single intelligent workflow. Generate Vastu-compliant, engineering-grade 2D/3D plans, visualize photorealistic renders and cinematic walkthroughs, and receive instant, location-aware cost estimations. Advanced AI-powered drafting, structural analysis, BOQ generation, site and project management tools, and a fully featured marketplace for materials, machinery, and verified services.',
-      image: archplanLogo,
-      features: ['AI 2D/3D Plans', 'Vastu Compliance', 'BOQ Generation', 'Cost Estimation', 'Material Marketplace', 'Project Management'],
-      gradient: 'from-primary to-orange-400',
-      accentColor: 'primary',
-      url: 'https://archplan.lovable.app',
-      progress: 85,
-    },
-    {
-      id: 'nexus',
-      name: 'Nexus Careers',
-      tagline: 'AI-Native Campus Operating System & Recruitment ERP',
-      description: 'A full-scale, AI-powered Campus Operating System unifying students, academic institutions, recruiters, and administrators into a single multi-tenant platform. Students interact through a futuristic, gamified portal featuring AI resume analysis, skill-gap detection, AI mock interviews with video and voice feedback, job tracking, cognitive games, and startup idea evaluation. Institutions operate through a powerful administrative command center managing academics, finance, registrars, clubs, placements, and analytics. Powered by Google Gemini and Supabase.',
-      icon: GraduationCap,
-      features: ['AI Mock Interviews', 'Skill-Gap Detection', 'Institutional ERP', 'Recruiter Portal', 'Gamified Learning', 'Career Analytics'],
-      gradient: 'from-accent to-lime-400',
-      accentColor: 'accent',
-      progress: 65,
-    },
-    {
-      id: 'nilayam',
-      name: 'Nilayam',
-      tagline: 'AI-Driven Property & Smart Living Platform',
-      description: 'A modern SaaS platform designed to simplify and automate the entire rental and property management lifecycle. Property owners access a centralized command center to manage properties, tenants, finances, maintenance, and community engagement, enhanced with AI-powered lease generation, financial insights, and marketing automation. Tenants benefit from a transparent digital portal for rent payments, maintenance requests, announcements, and document verification. Deep integration with Google Gemini API enables AI-generated rental agreements, maintenance image analysis, and promotional content.',
-      icon: Home,
-      features: ['AI Lease Generation', 'Financial Analytics', 'Tenant Portal', 'Maintenance AI', 'Marketing Automation', 'Community Hub'],
-      gradient: 'from-accent to-emerald-400',
-      accentColor: 'accent',
-      progress: 45,
-    },
-    {
-      id: 'wish0',
-      name: 'Wish-0',
-      tagline: 'Automated Occasion & Celebration Intelligence',
-      description: 'An AI-powered automation system designed to deliver personalized wishes for birthdays and all major life occasions without manual intervention. The platform intelligently generates context-aware, human-centric messages using natural language understanding and schedules them for timely delivery across preferred communication channels. By learning user preferences and relationships, Wish-0 ensures every message feels personal rather than automated. It represents our R&D focus on zero-friction, emotionally intelligent AI experiences.',
-      icon: Heart,
-      features: ['Auto Scheduling', 'Personalized Messages', 'Multi-Channel Delivery', 'Relationship Learning', 'Emotional Intelligence', 'Zero-Friction UX'],
-      gradient: 'from-primary to-amber-500',
-      accentColor: 'primary',
-      progress: 30,
-    },
-    {
-      id: 'letusknow',
-      name: 'Letusknow',
-      tagline: 'Citizen-Centric Digital Governance Platform',
-      description: 'A revolutionary citizen-centric digital governance platform designed to simplify how people access government services, understand procedures, and resolve public and personal issues without confusion or repeated office visits. Upon login, the platform uses PIN code and live GPS to identify the user\'s exact location—ward, mandal, district, village, municipality, and region. It provides comprehensive information about local political representatives including MLAs, MPs, corporators, and ward members, along with all government departments in the area. Users can type their requirements—whether obtaining certificates, Aadhaar updates, PAN changes, or any government service—and receive step-by-step guidance on which office to visit or online portal to use. Additionally, Letusknow showcases government development projects, sanctioned funds for regional development, and promotes local tourist spots developed to boost regional revenue.',
-      icon: Landmark,
-      features: ['GPS-Based Location', 'Political Representatives Info', 'Government Services Guide', 'Department Directory', 'Development Projects', 'Tourism Promotion'],
-      gradient: 'from-cyan-500 to-blue-600',
-      accentColor: 'accent',
-      progress: 25,
-    },
-  ];
+}
 
 const ProjectCard = ({
   project,
   index,
   onWaitlistClick
 }: {
-  project: typeof projects[0];
+  project: ProjectData;
   index: number;
   onWaitlistClick: (projectId: string, projectName: string, accentColor: 'primary' | 'accent') => void;
 }) => {
+  const { t } = useTranslation();
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -179,7 +124,7 @@ const ProjectCard = ({
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="glass-card p-8 h-full overflow-hidden relative"
+        className="glass-card p-8 h-full relative"
       >
         {/* Electric border on hover */}
         <motion.div
@@ -272,19 +217,20 @@ const ProjectCard = ({
 
         {/* Read More Indicator */}
         <motion.button
-          className={`text-xs font-medium mb-4 ${isPrimary ? 'text-primary' : 'text-accent'} hover:underline`}
+          className={`text-xs font-medium mb-4 ${isPrimary ? 'text-primary' : 'text-accent'} hover:underline relative z-[60]`}
+          style={{ transform: 'translateZ(60px)', pointerEvents: 'auto' }}
           onClick={(e) => {
             e.stopPropagation();
             setIsExpanded(!isExpanded);
           }}
         >
-          {isExpanded ? 'Show Less ↑' : 'Read More ↓'}
+          {isExpanded ? t('projects.showLess') : t('projects.readMore')}
         </motion.button>
 
         {/* Development Progress */}
         <div className="mb-8 space-y-2">
           <div className="flex justify-between items-end">
-            <span className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">Development Progress</span>
+            <span className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">{t('projects.progress')}</span>
             <span className={`text-sm font-bold ${isPrimary ? 'text-primary' : 'text-accent'}`}>{project.progress}%</span>
           </div>
           <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
@@ -319,10 +265,13 @@ const ProjectCard = ({
         </div>
 
         {/* Action Button Container */}
-        <div className="mt-6 pt-4 border-t border-border/30 relative z-[50]">
+        <div
+          className="mt-6 pt-4 border-t border-border/30 relative z-[70]"
+          style={{ transform: 'translateZ(80px)', pointerEvents: 'auto' }}
+        >
           <motion.button
             onClick={handleActionClick}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, translateZ: 90 }}
             whileTap={{ scale: 0.95 }}
             className={`w-full py-3.5 px-6 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 relative ${project.url
               ? 'bg-gradient-to-r from-primary to-orange-400 text-primary-foreground shadow-[0_4px_15px_rgba(251,146,60,0.3)] hover:shadow-[0_0_25px_hsl(25_85%_55%/0.5)]'
@@ -334,12 +283,12 @@ const ProjectCard = ({
             {project.url ? (
               <>
                 <ExternalLink className="w-4 h-4" />
-                Access Platform
+                {t('projects.access')}
               </>
             ) : (
               <>
                 <Bell className="w-4 h-4" />
-                Join Waitlist
+                {t('projects.waitlist')}
               </>
             )}
           </motion.button>
@@ -350,6 +299,7 @@ const ProjectCard = ({
 };
 
 export const ProjectsSection = () => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -364,6 +314,65 @@ export const ProjectsSection = () => {
     projectName: '',
     accentColor: 'primary',
   });
+
+  const projects: ProjectData[] = [
+    {
+      id: 'archplan',
+      name: t('projects.items.archplan.name'),
+      tagline: t('projects.items.archplan.tagline'),
+      description: t('projects.items.archplan.description'),
+      image: archplanLogo,
+      features: t('projects.items.archplan.features', { returnObjects: true }) as string[],
+      gradient: 'from-primary to-orange-400',
+      accentColor: 'primary',
+      url: 'https://archplan.lovable.app',
+      progress: 85,
+    },
+    {
+      id: 'nexus',
+      name: t('projects.items.nexus.name'),
+      tagline: t('projects.items.nexus.tagline'),
+      description: t('projects.items.nexus.description'),
+      icon: GraduationCap,
+      features: t('projects.items.nexus.features', { returnObjects: true }) as string[],
+      gradient: 'from-accent to-lime-400',
+      accentColor: 'accent',
+      progress: 65,
+    },
+    {
+      id: 'nilayam',
+      name: t('projects.items.nilayam.name'),
+      tagline: t('projects.items.nilayam.tagline'),
+      description: t('projects.items.nilayam.description'),
+      icon: Home,
+      features: t('projects.items.nilayam.features', { returnObjects: true }) as string[],
+      gradient: 'from-accent to-emerald-400',
+      accentColor: 'accent',
+      progress: 45,
+    },
+    {
+      id: 'wish0',
+      name: t('projects.items.wish0.name'),
+      tagline: t('projects.items.wish0.tagline'),
+      description: t('projects.items.wish0.description'),
+      icon: Heart,
+      features: t('projects.items.wish0.features', { returnObjects: true }) as string[],
+      gradient: 'from-primary to-amber-500',
+      accentColor: 'primary',
+      progress: 30,
+    },
+    {
+      id: 'letusknow',
+      name: t('projects.items.letusknow.name'),
+      tagline: t('projects.items.letusknow.tagline'),
+      description: t('projects.items.letusknow.description'),
+      icon: Landmark,
+      features: t('projects.items.letusknow.features', { returnObjects: true }) as string[],
+      gradient: 'from-cyan-500 to-blue-600',
+      accentColor: 'accent',
+      progress: 25,
+    },
+  ];
 
   const handleWaitlistClick = (projectId: string, projectName: string, accentColor: 'primary' | 'accent') => {
     setWaitlistModal({
@@ -441,15 +450,18 @@ export const ProjectsSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Our Products
+              {t('projects.title')}
             </motion.span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 font-display">
-              Building the{' '}
-              <span className="gradient-text-reverse glow-text-accent">Future</span>
+              <Trans
+                i18nKey="projects.subtitle"
+                components={[
+                  <span className="gradient-text-reverse glow-text-accent" />
+                ]}
+              />
             </h2>
             <p className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto">
-              Explore our portfolio of production-ready AI platforms transforming construction,
-              education, property management, and personal automation.
+              {t('projects.description')}
             </p>
           </motion.div>
 
