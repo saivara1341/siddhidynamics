@@ -135,7 +135,7 @@ export const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex flex-col items-center mb-10 mt-32 md:mt-28"
+            className="flex flex-col items-center mb-10 mt-20 md:mt-16"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
