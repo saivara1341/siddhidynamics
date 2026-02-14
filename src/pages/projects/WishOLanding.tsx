@@ -153,7 +153,7 @@ const WishOLanding = () => {
                                 {t('wisho_landing.core.desc')}
                             </p>
 
-                            <div className="flex flex-wrap justify-center gap-4 mt-10">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mt-10 max-w-3xl mx-auto">
                                 {['Google Contacts', 'Calendar', 'Canva', 'WhatsApp', 'AI Writer'].map((item, i) => (
                                     <span key={i} className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-purple-200">
                                         {item}
@@ -174,7 +174,7 @@ const WishOLanding = () => {
                             <div className="w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto" />
                         </div>
 
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                             {features.map((feature, i) => (
                                 <motion.div
                                     key={i}
@@ -203,7 +203,7 @@ const WishOLanding = () => {
                             {t('wisho_landing.process.title')}
                         </h2>
 
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 max-w-5xl mx-auto">
                             {steps.map((step, i) => (
                                 <div key={i} className="flex flex-col items-center text-center relative group">
                                     <div className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-purple-900/50 mb-6 group-hover:scale-110 transition-transform">

@@ -202,7 +202,7 @@ const NilayamLanding: React.FC = () => {
                             </Reveal>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-12">
                             {activeTab === 'owners'
                                 ? ownerFeatures.map((f, i) => <Reveal key={i} delay={i * 100}><FeatureCard {...f} /></Reveal>)
                                 : tenantFeatures.map((f, i) => <Reveal key={i} delay={i * 100}><FeatureCard {...f} /></Reveal>)
@@ -214,7 +214,7 @@ const NilayamLanding: React.FC = () => {
                 <Reveal>
                     <section className="py-20 border-t border-white/5">
                         <div className="container mx-auto px-6">
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 text-center">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
                                 <div className="p-6 bg-blue-500/10 rounded-3xl border border-blue-500/20">
                                     <div className="text-4xl sm:text-5xl font-extrabold text-blue-500 mb-2">98%</div>
                                     <div className="text-muted-foreground font-medium">{t('landing.stat_occupancy')}</div>

@@ -95,8 +95,7 @@ const NexusLanding = () => {
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => setIsWaitlistOpen(true)}
-                                    className="px-8 py-4 rounded-xl bg-gradient-to-r from-accent to-lime-500 text-black font-bold text-lg shadow-[0_0_30px_rgba(132,204,22,0.3)] hover:shadow-[0_0_50px_rgba(132,204,22,0.5)] transition-all"
-                                >
+                                    className="px-8 py-4 rounded-xl bg-gradient-to-r from-accent/90 to-lime-400 text-black font-bold text-lg shadow-[0_0_30px_rgba(132,204,22,0.3)] hover:shadow-[0_0_50px_rgba(132,204,22,0.5)] transition-all">
                                     {t('nexus_landing.hero.cta')}
                                 </motion.button>
                             </div>
@@ -136,8 +135,8 @@ const NexusLanding = () => {
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
                                     className={`px-6 py-3 rounded-full border transition-all duration-300 flex items-center gap-2 ${activeTab === tab.id
-                                            ? `bg-${tab.color.split('-')[1]}/10 ${tab.color} ${tab.border}`
-                                            : 'border-white/10 text-muted-foreground hover:border-white/20'
+                                        ? `bg-${tab.color.split('-')[1]}/10 ${tab.color} ${tab.border}`
+                                        : 'border-white/10 text-muted-foreground hover:border-white/20'
                                         }`}
                                 >
                                     <tab.icon className="w-4 h-4" />
@@ -168,12 +167,12 @@ const NexusLanding = () => {
 
                                 {/* Solution */}
                                 <div className={`glass-card p-8 bg-green-950/5 ${activeTab === 'student' ? 'border-accent/20' :
-                                        activeTab === 'admin' ? 'border-primary/20' :
-                                            'border-orange-400/20'
+                                    activeTab === 'admin' ? 'border-primary/20' :
+                                        'border-orange-400/20'
                                     }`}>
                                     <h3 className={`text-xl font-bold mb-6 flex items-center gap-2 ${activeTab === 'student' ? 'text-accent' :
-                                            activeTab === 'admin' ? 'text-primary' :
-                                                'text-orange-400'
+                                        activeTab === 'admin' ? 'text-primary' :
+                                            'text-orange-400'
                                         }`}>
                                         <Sparkles className="w-5 h-5" />
                                         The Nexus Solution
@@ -182,8 +181,8 @@ const NexusLanding = () => {
                                         {Object.entries(currentSegment.solution).map(([key, value]: any) => (
                                             <li key={key} className="flex gap-3">
                                                 <CheckCircle2 className={`w-5 h-5 shrink-0 mt-0.5 ${activeTab === 'student' ? 'text-accent' :
-                                                        activeTab === 'admin' ? 'text-primary' :
-                                                            'text-orange-400'
+                                                    activeTab === 'admin' ? 'text-primary' :
+                                                        'text-orange-400'
                                                     }`} />
                                                 <span className="text-sm text-foreground/90">{value}</span>
                                             </li>
@@ -204,7 +203,7 @@ const NexusLanding = () => {
                             </h2>
                         </div>
 
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             {currentFeatures.items.map((item: string, i: number) => (
                                 <motion.div
                                     key={i}
