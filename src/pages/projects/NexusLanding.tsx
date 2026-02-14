@@ -17,7 +17,27 @@ import {
     ShieldCheck,
     LayoutDashboard,
     Sparkles,
-    ChevronRight
+    ChevronRight,
+    Trophy,
+    Search,
+    Wrench,
+    Mic,
+    Shield,
+    Gamepad2,
+    Rocket,
+    Calendar,
+    HandHelping,
+    FileText,
+    Kanban,
+    PieChart,
+    Database,
+    CloudDownload,
+    Cpu,
+    Lock,
+    Bell,
+    Palette,
+    TrendingUp,
+    FileEdit
 } from 'lucide-react';
 
 const NexusLanding = () => {
@@ -53,9 +73,9 @@ const NexusLanding = () => {
                 style={{ scaleX }}
             />
 
-            <main className="pt-20">
+            <main className="pt-24 sm:pt-20">
                 {/* Hero Section */}
-                <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+                <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
                     {/* Background Effects */}
                     <div className="absolute inset-0 pointer-events-none">
                         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px] animate-pulse-glow" />
@@ -78,7 +98,7 @@ const NexusLanding = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
-                            className="max-w-4xl mx-auto mt-12"
+                            className="max-w-4xl mx-auto mt-8 sm:mt-12"
                         >
                             <span className="inline-block py-1 px-3 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold tracking-widest uppercase mb-6">
                                 {t('nexus_landing.hero.subtitle')}
@@ -129,18 +149,18 @@ const NexusLanding = () => {
                 <section className="py-24 bg-black/20">
                     <div className="container mx-auto px-6 max-w-6xl">
                         {/* Tabs */}
-                        <div className="flex flex-wrap justify-center gap-4 mb-16">
+                        <div className="flex flex-nowrap overflow-x-auto sm:flex-wrap justify-start sm:justify-center gap-3 mb-16 pb-4 sm:pb-0 scrollbar-hide px-2">
                             {tabs.map((tab) => (
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`px-6 py-3 rounded-full border transition-all duration-300 flex items-center gap-2 ${activeTab === tab.id
+                                    className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full border transition-all duration-300 flex items-center gap-2 flex-shrink-0 ${activeTab === tab.id
                                         ? `bg-${tab.color.split('-')[1]}/10 ${tab.color} ${tab.border}`
                                         : 'border-white/10 text-muted-foreground hover:border-white/20'
                                         }`}
                                 >
-                                    <tab.icon className="w-4 h-4" />
-                                    <span className="font-bold">{tab.label}</span>
+                                    <tab.icon className="w-3.5 h-3.5 sm:w-4 h-4" />
+                                    <span className="font-bold text-xs sm:text-sm whitespace-nowrap">{tab.label}</span>
                                 </button>
                             ))}
                         </div>
@@ -204,25 +224,59 @@ const NexusLanding = () => {
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {currentFeatures.items.map((item: string, i: number) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: i * 0.05 }}
-                                    className="glass-card p-6 border-white/5 hover:border-accent/20 transition-colors group"
-                                >
-                                    <div className="flex items-start gap-4">
-                                        <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0 group-hover:bg-accent/10 transition-colors">
-                                            <LayoutDashboard className="w-4 h-4 text-muted-foreground group-hover:text-accent" />
+                            {currentFeatures.items.map((item: string, i: number) => {
+                                // Simple icon mapping based on keywords
+                                const getIcon = (text: string) => {
+                                    const lower = text.toLowerCase();
+                                    if (lower.includes('xp') || lower.includes('leaderboard') || lower.includes('trophy')) return <Trophy className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('search') || lower.includes('matching')) return <Search className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('toolkit') || lower.includes('wrench')) return <Wrench className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('interview') || lower.includes('voice')) return <Mic className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('proctor') || lower.includes('exam') || lower.includes('shield')) return <Shield className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('gig') || lower.includes('help')) return <HandHelping className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('arcade') || lower.includes('game')) return <Gamepad2 className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('launchpad') || lower.includes('pitch')) return <Rocket className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('schedule') || lower.includes('calendar')) return <Calendar className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('command') || lower.includes('dashboard')) return <LayoutDashboard className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('hub') || lower.includes('management')) return <Users className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('importer') || lower.includes('scrape') || lower.includes('upload')) return <CloudDownload className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('kanban') || lower.includes('pipeline')) return <Kanban className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('report') || lower.includes('analysis')) return <PieChart className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('analytics')) return <TrendingUp className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('paper') || lower.includes('mo') || lower.includes('research')) return <FileText className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('post') || lower.includes('description')) return <FileEdit className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('team') || lower.includes('collaboration')) return <Users className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('brand') || lower.includes('portal')) return <Building2 className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('access') || lower.includes('role')) return <ShieldCheck className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('backend') || lower.includes('data')) return <Database className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('chatbot') || lower.includes('mentor')) return <BrainCircuit className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('security') || lower.includes('mfa')) return <Lock className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('notification')) return <Bell className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                    if (lower.includes('theme') || lower.includes('dual')) return <Palette className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+
+                                    return <Sparkles className="w-4 h-4 text-muted-foreground group-hover:text-accent" />;
+                                };
+
+                                return (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: i * 0.05 }}
+                                        className="glass-card p-6 border-white/5 hover:border-accent/20 transition-colors group"
+                                    >
+                                        <div className="flex items-start gap-4">
+                                            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0 group-hover:bg-accent/10 transition-colors">
+                                                {getIcon(item)}
+                                            </div>
+                                            <p className="text-sm font-medium text-foreground/80 group-hover:text-foreground">
+                                                {item}
+                                            </p>
                                         </div>
-                                        <p className="text-sm font-medium text-foreground/80 group-hover:text-foreground">
-                                            {item}
-                                        </p>
-                                    </div>
-                                </motion.div>
-                            ))}
+                                    </motion.div>
+                                );
+                            })}
                         </div>
                     </div>
                 </section>

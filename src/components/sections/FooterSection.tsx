@@ -167,7 +167,7 @@ export const FooterSection = () => {
               }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             />
-            {t('footer.description')}
+            {/* Footer description removed per user request */}
           </motion.p>
         </motion.div>
       </div>

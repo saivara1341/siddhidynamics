@@ -114,7 +114,7 @@ const NilayamLanding: React.FC = () => {
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             onClick={() => navigate('/')}
-                            className="absolute top-0 left-4 md:left-0 flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors"
+                            className="absolute -top-12 md:top-0 left-4 md:left-0 flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors z-20"
                         >
                             <ArrowLeft className="w-4 h-4" />
                             Back to Home

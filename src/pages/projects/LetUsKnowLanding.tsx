@@ -112,7 +112,7 @@ const LetUsKnowLanding = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.8 }}
                             >
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-bold mb-6">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-bold mb-6 mt-16 lg:mt-0">
                                     <span className="relative flex h-2 w-2">
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
