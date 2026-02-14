@@ -43,7 +43,7 @@
     --electric-border: 25 85% 55%;
     --electric-glow: 25 90% 60%;
     --electric-lime: 85 70% 45%;
-    
+
     /* Glassmorphism */
     --glass-bg: 20 15% 6% / 0.8;
     --glass-border: 25 50% 40% / 0.3;
@@ -66,17 +66,22 @@
     background-attachment: fixed;
   }
 
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-family: 'Orbitron', 'Space Grotesk', sans-serif;
     letter-spacing: -0.02em;
   }
 
-  h4, h5, h6 {
+  h4,
+  h5,
+  h6 {
     font-family: 'Space Grotesk', sans-serif;
   }
 }
 
 @layer components {
+
   /* Electric border effect */
   .electric-border {
     @apply relative;
@@ -88,14 +93,12 @@
     content: '';
     @apply absolute inset-0 rounded-2xl pointer-events-none;
     padding: var(--border-width);
-    background: linear-gradient(
-      135deg,
-      hsl(var(--electric-border)) 0%,
-      hsl(var(--electric-lime)) 25%,
-      hsl(var(--electric-border)) 50%,
-      hsl(var(--electric-lime)) 75%,
-      hsl(var(--electric-border)) 100%
-    );
+    background: linear-gradient(135deg,
+        hsl(var(--electric-border)) 0%,
+        hsl(var(--electric-lime)) 25%,
+        hsl(var(--electric-border)) 50%,
+        hsl(var(--electric-lime)) 75%,
+        hsl(var(--electric-border)) 100%);
     background-size: 300% 300%;
     animation: electric-flow 4s ease infinite;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -108,12 +111,10 @@
     content: '';
     @apply absolute inset-0 rounded-2xl pointer-events-none opacity-50;
     padding: var(--border-width);
-    background: linear-gradient(
-      135deg,
-      hsl(var(--electric-border)) 0%,
-      hsl(var(--electric-lime)) 50%,
-      hsl(var(--electric-border)) 100%
-    );
+    background: linear-gradient(135deg,
+        hsl(var(--electric-border)) 0%,
+        hsl(var(--electric-lime)) 50%,
+        hsl(var(--electric-border)) 100%);
     background-size: 300% 300%;
     animation: electric-flow 4s ease infinite;
     filter: blur(8px);
@@ -124,9 +125,12 @@
   }
 
   @keyframes electric-flow {
-    0%, 100% {
+
+    0%,
+    100% {
       background-position: 0% 50%;
     }
+
     50% {
       background-position: 100% 50%;
     }
@@ -143,38 +147,36 @@
   .glass-card::before {
     content: '';
     @apply absolute inset-0 rounded-2xl;
-    background: linear-gradient(
-      135deg,
-      hsl(25 85% 55% / 0.08) 0%,
-      transparent 40%,
-      hsl(85 70% 45% / 0.04) 100%
-    );
+    background: linear-gradient(135deg,
+        hsl(25 85% 55% / 0.08) 0%,
+        transparent 40%,
+        hsl(85 70% 45% / 0.04) 100%);
     pointer-events: none;
   }
 
   /* Electric glow effects */
   .glow-primary {
-    box-shadow: 
+    box-shadow:
       0 0 20px hsl(25 85% 55% / 0.3),
       0 0 40px hsl(25 85% 55% / 0.2),
       0 0 60px hsl(25 85% 55% / 0.1);
   }
 
   .glow-accent {
-    box-shadow: 
+    box-shadow:
       0 0 20px hsl(85 70% 45% / 0.3),
       0 0 40px hsl(85 70% 45% / 0.2),
       0 0 60px hsl(85 70% 45% / 0.1);
   }
 
   .glow-text {
-    text-shadow: 
+    text-shadow:
       0 0 20px hsl(25 85% 55% / 0.6),
       0 0 40px hsl(25 85% 55% / 0.3);
   }
 
   .glow-text-accent {
-    text-shadow: 
+    text-shadow:
       0 0 20px hsl(85 70% 45% / 0.6),
       0 0 40px hsl(85 70% 45% / 0.3);
   }
@@ -182,40 +184,34 @@
   /* Gradient text */
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(
-      135deg,
-      hsl(25 85% 60%) 0%,
-      hsl(35 90% 55%) 50%,
-      hsl(85 70% 50%) 100%
-    );
+    background-image: linear-gradient(135deg,
+        hsl(25 85% 60%) 0%,
+        hsl(35 90% 55%) 50%,
+        hsl(85 70% 50%) 100%);
   }
 
   .gradient-text-reverse {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(
-      135deg,
-      hsl(85 70% 50%) 0%,
-      hsl(35 90% 55%) 50%,
-      hsl(25 85% 60%) 100%
-    );
+    background-image: linear-gradient(135deg,
+        hsl(85 70% 50%) 0%,
+        hsl(35 90% 55%) 50%,
+        hsl(25 85% 60%) 100%);
   }
 
   /* Premium button styles */
   .btn-primary {
     @apply relative px-8 py-4 rounded-xl font-semibold text-primary-foreground overflow-hidden transition-all duration-500;
-    background: linear-gradient(
-      135deg,
-      hsl(25 85% 55%) 0%,
-      hsl(30 90% 50%) 50%,
-      hsl(25 85% 55%) 100%
-    );
+    background: linear-gradient(135deg,
+        hsl(25 85% 55%) 0%,
+        hsl(30 90% 50%) 50%,
+        hsl(25 85% 55%) 100%);
     background-size: 200% 200%;
     animation: gradient-shift 3s ease infinite;
   }
 
   .btn-primary:hover {
     @apply transform scale-[1.02];
-    box-shadow: 
+    box-shadow:
       0 0 30px hsl(25 85% 55% / 0.5),
       0 0 60px hsl(25 85% 55% / 0.3),
       inset 0 0 30px hsl(35 90% 60% / 0.2);
@@ -233,7 +229,7 @@
     @apply transform scale-[1.02];
     background: hsl(25 85% 55% / 0.1);
     border-color: hsl(25 85% 55% / 0.6);
-    box-shadow: 
+    box-shadow:
       0 0 20px hsl(25 85% 55% / 0.2),
       inset 0 0 20px hsl(25 85% 55% / 0.05);
   }
@@ -247,7 +243,7 @@
 
   .input-premium:focus {
     border-color: hsl(25 85% 55% / 0.6);
-    box-shadow: 
+    box-shadow:
       0 0 20px hsl(25 85% 55% / 0.15),
       inset 0 0 20px hsl(25 85% 55% / 0.03);
   }
@@ -262,26 +258,29 @@
   .particle-ring::before {
     content: '';
     @apply absolute inset-0 pointer-events-none;
-    background: 
-      radial-gradient(
-        800px circle at calc(var(--ring-x) * 1%) calc(var(--ring-y) * 1%),
+    background:
+      radial-gradient(800px circle at calc(var(--ring-x) * 1%) calc(var(--ring-y) * 1%),
         hsl(25 85% 55% / 0.15) 0%,
         hsl(85 70% 45% / 0.08) 25%,
-        transparent 50%
-      );
+        transparent 50%);
   }
 
   /* Floating animation */
   @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0px) rotateX(0deg) rotateY(0deg);
     }
+
     25% {
       transform: translateY(-15px) rotateX(3deg) rotateY(3deg);
     }
+
     50% {
       transform: translateY(-25px) rotateX(0deg) rotateY(0deg);
     }
+
     75% {
       transform: translateY(-15px) rotateX(-3deg) rotateY(-3deg);
     }
@@ -293,10 +292,13 @@
 
   /* Pulse glow animation */
   @keyframes pulse-glow {
-    0%, 100% {
+
+    0%,
+    100% {
       opacity: 0.4;
       filter: brightness(1);
     }
+
     50% {
       opacity: 1;
       filter: brightness(1.2);
@@ -309,9 +311,12 @@
 
   /* Gradient shift animation */
   @keyframes gradient-shift {
-    0%, 100% {
+
+    0%,
+    100% {
       background-position: 0% 50%;
     }
+
     50% {
       background-position: 100% 50%;
     }
@@ -324,13 +329,16 @@
 
   /* Electric pulse */
   @keyframes electric-pulse {
-    0%, 100% {
-      box-shadow: 
+
+    0%,
+    100% {
+      box-shadow:
         0 0 20px hsl(25 85% 55% / 0.3),
         0 0 40px hsl(25 85% 55% / 0.1);
     }
+
     50% {
-      box-shadow: 
+      box-shadow:
         0 0 30px hsl(25 85% 55% / 0.5),
         0 0 60px hsl(25 85% 55% / 0.2),
         0 0 80px hsl(85 70% 45% / 0.1);
@@ -345,12 +353,10 @@
   .scan-line::after {
     content: '';
     @apply absolute inset-0 pointer-events-none;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      hsl(25 85% 55% / 0.04) 50%,
-      transparent 100%
-    );
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        hsl(25 85% 55% / 0.04) 50%,
+        transparent 100%);
     animation: scan 6s linear infinite;
   }
 
@@ -358,6 +364,7 @@
     0% {
       transform: translateY(-100%);
     }
+
     100% {
       transform: translateY(100%);
     }
@@ -368,6 +375,7 @@
     from {
       transform: rotate(0deg) translateX(100px) rotate(0deg);
     }
+
     to {
       transform: rotate(360deg) translateX(100px) rotate(-360deg);
     }
@@ -382,18 +390,17 @@
     0% {
       background-position: -200% 0;
     }
+
     100% {
       background-position: 200% 0;
     }
   }
 
   .shimmer {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      hsl(25 85% 55% / 0.1) 50%,
-      transparent 100%
-    );
+    background: linear-gradient(90deg,
+        transparent 0%,
+        hsl(25 85% 55% / 0.1) 50%,
+        transparent 100%);
     background-size: 200% 100%;
     animation: shimmer 3s ease-in-out infinite;
   }
@@ -410,6 +417,7 @@
       transform: scale(0.8);
       opacity: 0.6;
     }
+
     100% {
       transform: scale(2);
       opacity: 0;
@@ -423,7 +431,7 @@
 
   /* Grid pattern overlay */
   .grid-pattern {
-    background-image: 
+    background-image:
       linear-gradient(hsl(25 50% 30% / 0.05) 1px, transparent 1px),
       linear-gradient(90deg, hsl(25 50% 30% / 0.05) 1px, transparent 1px);
     background-size: 50px 50px;

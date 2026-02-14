@@ -93,7 +93,7 @@ const Portal = () => {
                         </button>
                     </div>
                     <div>
-                        <p className="text-muted-foreground">Collab Zone • Engineering Intelligence</p>
+                        <p className="text-muted-foreground">Collab Zone • Growth & Marketing Intelligence</p>
                         <h2 className="text-2xl font-bold gradient-text">Welcome, {user?.email?.split('@')[0]}</h2>
                     </div>
                 </div>
@@ -200,18 +200,18 @@ const Portal = () => {
                                                                         <Sparkles className="w-5 h-5 text-primary animate-pulse" />
                                                                     </div>
                                                                     <div>
-                                                                        <h4 className="font-bold text-foreground">Siddhi Agent Analysis</h4>
-                                                                        <p className="text-[10px] text-primary/70 uppercase tracking-widest font-bold">Active Intelligence Follow-up</p>
+                                                                        <h4 className="font-bold text-foreground">Siddhi Bot</h4>
+                                                                        <p className="text-[10px] text-primary/70 uppercase tracking-widest font-bold">Marketing & Growth Strategist</p>
                                                                     </div>
                                                                 </div>
 
                                                                 <div className="space-y-6">
                                                                     <div className="bg-black/40 rounded-xl p-5 border border-white/5">
                                                                         <h5 className="text-xs font-bold text-muted-foreground uppercase mb-3 flex items-center gap-2">
-                                                                            <Clock className="w-3 h-3" /> Agent State: Refining Roadmap
+                                                                            <Clock className="w-3 h-3" /> Bot State: Crafting Campaign
                                                                         </h5>
                                                                         <p className="text-sm text-foreground/80 leading-relaxed italic">
-                                                                            "I have analyzed your {sub.inquiry_type} statement. Our local LLM agents are currently decomposing your request into high-fidelity technical requirements. We are prioritizing the '{sub.message.split(' ').slice(0, 3).join(' ')}...' core architecture."
+                                                                            "I have analyzed your {sub.inquiry_type} submission. I am currently designing a high-impact social media strategy to maximize engagement. We are targeting viral growth vectors for '{sub.message.split(' ').slice(0, 3).join(' ')}...' on Instagram and LinkedIn."
                                                                         </p>
                                                                     </div>
 
@@ -232,10 +232,10 @@ const Portal = () => {
                                                                         <h4 className="text-sm font-bold uppercase tracking-widest text-primary/70">Agentic Milestones</h4>
                                                                         <div className="space-y-4">
                                                                             {(sub.milestones || [
-                                                                                { title: "Strategic Agent Alignment", completed: true },
-                                                                                { title: "Architectural Synthesis", completed: sub.status !== 'Analyzing' },
-                                                                                { title: "Recursive Prototyping", completed: sub.status === 'In Progress' || sub.status === 'Resolved' },
-                                                                                { title: "Final Solution Deployment", completed: sub.status === 'Resolved' }
+                                                                                { title: "Brand Voice Alignment", completed: true },
+                                                                                { title: "Social Content Strategy", completed: sub.status !== 'Analyzing' },
+                                                                                { title: "Viral Campaign Launch", completed: sub.status === 'In Progress' || sub.status === 'Resolved' },
+                                                                                { title: "Growth & Analytics Report", completed: sub.status === 'Resolved' }
                                                                             ]).map((milestone: any, i: number) => (
                                                                                 <div key={i} className="flex items-center gap-4">
                                                                                     {milestone.completed ? (
@@ -264,7 +264,7 @@ const Portal = () => {
                                                                 </h4>
                                                                 <div className="bg-accent/5 border border-accent/20 rounded-xl p-5">
                                                                     <p className="text-sm text-foreground/80 leading-relaxed">
-                                                                        <span className="text-accent font-bold">Agent Inquiry:</span> "To ensure maximum clarity on your {sub.inquiry_type} request, could you specifically detail the primary bottleneck you're experiencing? Our agents are currently mapping the '{sub.message.split(' ').slice(0, 2).join(' ')}' context to existing AI frameworks."
+                                                                        <span className="text-accent font-bold">Bot Inquiry:</span> "To optimize your reach, which platform is your primary focus? I am currently tailoring the '{sub.message.split(' ').slice(0, 2).join(' ')}' campaign for maximum CTR."
                                                                     </p>
                                                                     <div className="mt-4 flex gap-3">
                                                                         <div className="flex-grow bg-black/40 rounded-lg px-4 py-2 text-xs text-muted-foreground italic border border-white/5">
@@ -330,7 +330,7 @@ const Portal = () => {
             {/* Footer Branding */}
             <footer className="py-8 border-t border-border/10 text-center">
                 <p className="text-xs text-muted-foreground/50 uppercase tracking-[0.3em]">
-                    Engineering Agentic Intelligence • Siddhi Dynamics Collab
+                    Growth & Marketing Intelligence • Siddhi Dynamics Collab
                 </p>
             </footer>
         </div>
