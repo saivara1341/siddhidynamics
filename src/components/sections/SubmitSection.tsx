@@ -11,7 +11,7 @@ const contactSchema = z.object({
   email: z.string().email('Invalid email address'),
   designation: z.string().max(100).optional(),
   organization: z.string().max(100).optional(),
-  inquiryType: z.enum(['problem', 'requirement', 'inquiry']),
+  inquiryType: z.enum(['problem', 'requirement', 'inquiry', 'investor']),
   message: z.string().min(10, 'Message must be at least 10 characters').max(2000),
 });
 
@@ -209,11 +209,12 @@ export const SubmitSection = () => {
                   <label className="block text-sm font-medium text-foreground">
                     {t('submit.discussLabel')}
                   </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {[
-                      { value: 'problem', label: t('submit.types.problem'), icon: '🎯', hasQuestionMark: false },
-                      { value: 'requirement', label: t('submit.types.requirement'), icon: '📋', hasQuestionMark: false },
-                      { value: 'inquiry', label: t('submit.types.inquiry'), icon: '❓', hasQuestionMark: false },
+                      { value: 'problem', label: t('submit.types.problem'), icon: '🎯' },
+                      { value: 'requirement', label: t('submit.types.requirement'), icon: '📋' },
+                      { value: 'inquiry', label: t('submit.types.inquiry'), icon: '❓' },
+                      { value: 'investor', label: t('submit.types.investor'), icon: '🤝' },
                     ].map((type) => (
                       <motion.button
                         key={type.value}

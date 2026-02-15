@@ -268,16 +268,17 @@
     "cellDescription": "Empowering startups with resources, mentorship, and a collaborative ecosystem to transform innovative ideas into successful ventures."
   },
   "submit": {
-    "title": "Submit Your Challenge",
-    "subtitle": "Let's Solve It <0>Together</0>",
-    "description": "Do you have a complex problem that needs a technological solution? We're looking for real-world challenges to tackle with our AI systems.",
+    "title": "Connect With Us",
+    "subtitle": "Let's Build the Future <0>Together</0>",
+    "description": "We're open to collaborations, investment opportunities, and real-world challenges to drive deep-tech innovation together.",
     "cta": "Submit Problem",
     "badge": "AI-Powered Analysis",
     "discussLabel": "What would you like to discuss?",
     "types": {
       "problem": "Real-World Problem",
       "requirement": "Project Requirement",
-      "inquiry": "General Inquiry"
+      "inquiry": "General Inquiry",
+      "investor": "Investors & Supporters"
     },
     "fields": {
       "name": "Full Name",
@@ -294,13 +295,16 @@
         "inquiry": "Your Message",
         "problemPlaceholder": "Describe the real-world challenge you're facing in detail...",
         "requirementPlaceholder": "Describe your project requirements, features needed, timeline expectations...",
-        "inquiryPlaceholder": "How can we help you? Share your questions or ideas..."
+        "inquiryPlaceholder": "How can we help you? Share your questions or ideas...",
+        "investor": "Investment or Collaboration Details",
+        "investorPlaceholder": "Tell us about your interests, potential collaborations, or investment inquiries..."
       }
     },
     "submitButton": {
       "problem": "Submit for AI Analysis",
       "requirement": "Send Requirements",
       "inquiry": "Send Message",
+      "investor": "Send Inquiry",
       "submitting": "Submitting..."
     },
     "security": "Your data is secured and processed by our AI",
@@ -328,6 +332,7 @@
       "problemSuccess": "Problem submitted successfully! Our AI agents will analyze your challenge.",
       "requirementSuccess": "Requirements received! We'll get back to you with a tailored solution.",
       "inquirySuccess": "Thank you for reaching out! We'll respond to your inquiry shortly.",
+      "investorSuccess": "Inquiry sent successfully! We'll get back to you shortly.",
       "inputError": "Please check your input and try again.",
       "genericError": "Failed to submit. Please try again."
     }
